@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Annexe_1_Shared_Preferences">
-        <activity android:name=".MainActivity" android:exported="true">
+        <activity android:name=".ListeActivity"></activity>
+        <activity android:name=".AjouterActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
