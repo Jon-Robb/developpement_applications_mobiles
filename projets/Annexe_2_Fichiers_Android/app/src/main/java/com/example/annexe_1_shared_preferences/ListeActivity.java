@@ -21,16 +21,6 @@ public class ListeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_liste);
         listView = findViewById(R.id.listView);
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, getMemos());
-        listView.setAdapter(arrayAdapter);
-    }
-
-    public Vector<String> getMemos(){
-
-        SharedPreferences memoSauves = getSharedPreferences("liste", Context.MODE_PRIVATE);
-        HashSet<String> ensembleMemos = (HashSet<String>) memoSauves.getStringSet("ensemble", new HashSet<>());
-        Vector<String> vec = new Vector<>(ensembleMemos);
-        return vec;
     }
 
 }
