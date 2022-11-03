@@ -1,4 +1,4 @@
-package com.example.annexe_1_shared_preferences;
+package com.example.annexe_2_fichiers_android;
 
 import android.content.Context;
 

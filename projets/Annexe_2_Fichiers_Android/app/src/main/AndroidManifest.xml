@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.annexe_1_shared_preferences">
+    package="com.example.annexe_2_fichiers_android">
 
     <application
         android:allowBackup="true"
@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Annexe_1_Shared_Preferences">
-        <activity android:name=".ListeActivity"></activity>
-        <activity android:name=".AjouterActivity" />
+        <activity android:name="com.example.annexe_2_fichiers_android.ListeActivity"></activity>
+        <activity android:name="com.example.annexe_2_fichiers_android.AjouterActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.annexe_2_fichiers_android.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
