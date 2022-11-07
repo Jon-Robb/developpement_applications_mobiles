@@ -201,16 +201,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    public int scannerMots(){
-//
-//        try {
-//            FileInputStream fis = openFileInput("fichier_texte.txt");
-//            Scanner s = new Scanner
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//    }
+    public int scannerMots(){
+
+        int compteur = 0;
+        Scanner sc = null;
+        try {
+            FileInputStream fis = openFileInput("fichier_texte.txt");
+            sc = new Scanner(fis);
+
+            while (sc.hasNext()) {
+                compteur++;
+            }
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        finally {
+
+            sc.close();
+            return compteur;
+        }
+    }
 
 }

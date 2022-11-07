@@ -1,0 +1,2 @@
+rootProject.name = "Annexe_3_Serialisation"
+include ':app'
