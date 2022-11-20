@@ -25,6 +25,8 @@ public class InfoActivity extends AppCompatActivity {
 //    méthode passée au bouton dans les paramètres du layout
     public void clic( View v ){
 
+//        On cree un intent de retour vide dans lequel on ajoute un extra (un objet utilisateur remlit du nom et
+//          prenom entre par l utilisateur
         Intent retour = new Intent();
         u = new Utilisateur(champPrenom.getText().toString(), champNom.getText().toString());
 //        Puisque notre classe est sérializable, on peut passer l'objet Utilisateur dans l'extra

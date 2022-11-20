@@ -66,7 +66,7 @@ public class DebutActivity extends AppCompatActivity {
         @Override
         public void onActivityResult(ActivityResult result){
 //          C'est ici que le boomerang revient avec les informations (nom, prénom)
-
+//          On transtype les donnees pour les transformer en objet
            if (result.getResultCode() == 24){
 
                assert result.getData() != null;

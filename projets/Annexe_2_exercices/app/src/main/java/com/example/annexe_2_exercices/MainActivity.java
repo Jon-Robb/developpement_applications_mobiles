@@ -127,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
     public int compterNbChar(){
 
         BufferedReader br = null;
-        int c;
         int count = 0;
         try {
 
