@@ -35,7 +35,9 @@ public class AjouterActivity extends AppCompatActivity {
         public void onClick(View source) {
             if (!champAjouterPensee.equals("")){
 
+//                Lors de l appuie sur le bouton retour, on ajoute la pensee dans notre liste grace a notre singleton
                 instance.ajouterPensee(champAjouterPensee.getText().toString());
+//                Pour le plaisir j envoie un texte qui devra etre ecrit lors du toast
                 Intent retour = new Intent();
                 retour.putExtra("texte", "Pensée ajoutée!");
                 setResult(24, retour);

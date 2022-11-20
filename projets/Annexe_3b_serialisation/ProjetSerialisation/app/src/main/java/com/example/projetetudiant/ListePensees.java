@@ -17,6 +17,7 @@ public class ListePensees {
     private Context context;
 
 
+//    Notre liste de pensee style singleton
     public static ListePensees getInstance(Context context){
         if(instance == null){
             instance = new ListePensees(context);
@@ -24,6 +25,7 @@ public class ListePensees {
         return instance;
     }
 
+//    creation de la liste avec une pensee ajoutee lors de sa premiere creation
    private ListePensees (Context context){
         this.context = context;
         lesPensees = new Vector<>();
@@ -45,6 +47,9 @@ public class ListePensees {
         return lesPensees;
     }
 
+//    Pour serialiser dans un fichier .ser
+//     Memes etapes que pour ecrire dans un fichier mais la cest un objet serialiser qu on met en
+//      utilisant un objectoutputStream
     public void serialiserListe() {
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
@@ -69,7 +74,7 @@ public class ListePensees {
 
     public void recupererDuFichierDeSerialisation() throws IOException, ClassNotFoundException {
 
-
+//        Meme etapes que pour un fichier texte mais ici on utilise un ObjectInputStream
         FileInputStream fis = context.openFileInput("test.ser");
         ObjectInputStream ois = new ObjectInputStream(fis);
         lesPensees = (Vector<String>)ois.readObject();
