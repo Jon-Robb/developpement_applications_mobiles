@@ -31,6 +31,7 @@ public class ListeActivity extends AppCompatActivity {
 
     }
 
+//    methode pour fermer le flux reader
     public void fermerFlux(Reader r){
         try {
             r.close();
@@ -38,6 +39,7 @@ public class ListeActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 
     public Vector<String> getMemos(){
 
@@ -48,8 +50,11 @@ public class ListeActivity extends AppCompatActivity {
             InputStreamReader isr = new InputStreamReader(fis);
             br = new BufferedReader(isr);
             vec = new Vector<>();
+
+//            On se cree une variable String pour y storer le contenu des lignes lues
             String line;
 
+//            readLine retourne null lorsqu il arrive a la fin du fichier
             while((line = br.readLine()) != null){
                 vec.add(line);
             }
