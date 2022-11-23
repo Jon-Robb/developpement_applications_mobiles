@@ -12,6 +12,7 @@ import androidx.core.app.ActivityOptionsCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Intent;
@@ -34,10 +35,11 @@ public class MainActivity extends AppCompatActivity {
 
     Ecouteur ec;
     Button btnLivre, btnHawkes, btnMarie, btnCourriel, btnPhoto;
-    ImageView image;
+    ImageView champImage;
     LinearLayout conteneur;
     Intent intent;
     ActivityResultLauncher<Intent> lanceur;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +52,26 @@ public class MainActivity extends AppCompatActivity {
         btnMarie = findViewById(R.id.btnMarie);
         btnPhoto = findViewById(R.id.btnPhoto);
         conteneur = findViewById(R.id.conteneur);
+        champImage = findViewById(R.id.champImage);
 
-        lanceur = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new CallRetour());
+        lanceur = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == Activity.RESULT_OK){
+                assert result.getData() != null;
+                Uri image = result.getData().getData();
+                champImage.setImageURI(image);
+            }
+        });
 
 
         ec = new Ecouteur();
 
-        for(int i = 0; i < conteneur.getChildCount() - 1; i++){
+        btnPhoto.setOnClickListener(source -> {
+            Intent i = new Intent(Intent.ACTION_PICK);
+            i.setType("image/*");
+            lanceur.launch(i);
+        });
+
+        for(int i = 0; i < conteneur.getChildCount() - 2; i++){
             conteneur.getChildAt(i).setOnClickListener(ec);
         }
 
@@ -92,16 +107,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class CallRetour implements ActivityResultCallback<ActivityResult>{
-
-        @Override
-        public void onActivityResult(ActivityResult data) {
-            assert data.getData() != null;
-            Bundle extras = data.getData().getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            image.setImageBitmap(imageBitmap);
-        }
-    }
+//    private class CallBackImage implements ActivityResultCallback<ActivityResult>{
+//
+//        @Override
+//        public void onActivityResult(ActivityResult result) {
+//            if (result.getResultCode() == Activity.RESULT_OK){
+//                Uri image = result.getData().getData();
+//                champImage.setImageURI(image);
+//            }
+//        }
+//    }
 
     private class Ecouteur implements View
 
@@ -123,11 +138,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
             else if (source == btnCourriel){
-
-            }
-            else{
-                intent =  new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                intent.setType("/image/*");
 
             }
         }
