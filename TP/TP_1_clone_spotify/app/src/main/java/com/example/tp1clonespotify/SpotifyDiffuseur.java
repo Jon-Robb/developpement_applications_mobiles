@@ -7,6 +7,9 @@ import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
 import com.spotify.protocol.types.Track;
+import com.spotify.protocol.types.Uri;
+
+import java.util.Vector;
 
 public class SpotifyDiffuseur {
 
@@ -15,6 +18,7 @@ public class SpotifyDiffuseur {
     private static final String CLIENT_ID = "b2b20661ad71475b81e4b19305de50e6";
     private static final String REDIRECT_URI = "com.example.tp1clonespotify://callback";
     private SpotifyAppRemote mSpotifyAppRemote;
+    private String playlist = "spotify:playlist:2I9t0VoXbhjgCwlQ4LasO9";
 
 
     public static SpotifyDiffuseur getInstance(Context context){
@@ -22,6 +26,10 @@ public class SpotifyDiffuseur {
             instance = new SpotifyDiffuseur(context);
         }
         return  instance;
+    }
+
+    public SpotifyAppRemote getmSpotifyAppRemote() {
+        return mSpotifyAppRemote;
     }
 
     private SpotifyDiffuseur (Context context){
@@ -44,7 +52,6 @@ public class SpotifyDiffuseur {
                         Log.d("MainActivity", "Connected! Yay!");
 
                         // Now you can start interacting with App Remote
-                        startPlaylist();
 
                     }
 
@@ -57,22 +64,37 @@ public class SpotifyDiffuseur {
 
     }
 
-    private void startPlaylist() {
+    public void play(String playlist) {
         // Play a playlist
-        mSpotifyAppRemote.getPlayerApi().play("spotify:playlist:2I9t0VoXbhjgCwlQ4LasO9");
+        mSpotifyAppRemote.getPlayerApi().play(playlist);
+    }
 
+    public void pause(){
+        mSpotifyAppRemote.getPlayerApi().pause();
+    }
 
-        // Subscribe to PlayerState
+    public void next(){
+        mSpotifyAppRemote.getPlayerApi().skipNext();
+    }
+
+    public void back(){
+        mSpotifyAppRemote.getPlayerApi().skipPrevious();
+    }
+
+    public Vector<String> getTrackInfos(){
+        Vector<String> vector = new Vector<>();
         mSpotifyAppRemote.getPlayerApi()
                 .subscribeToPlayerState()
                 .setEventCallback(playerState -> {
                     final Track track = playerState.track;
 
                     if (track != null) {
-                        Log.d("MainActivity", track.name + " by " + track.artist.name);
-                        Log.d("yo" ,track.artist + "" + track.duration + track.album + track.imageUri +  track.uri);
+                        vector.add(track.name);
+                        vector.add(track.artist.name);
+                        vector.add(track.album.name);
                     }
                 });
+        return vector;
     }
 
 }
