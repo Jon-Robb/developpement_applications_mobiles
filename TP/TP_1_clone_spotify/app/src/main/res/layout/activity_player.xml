@@ -92,54 +92,67 @@
         android:paddingTop="40dp">
 
         <ImageView
-            android:id="@+id/imgRewind"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-            android:src="@android:drawable/ic_media_rew" />
+            android:id="@+id/imgSkipBack"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:adjustViewBounds="false"
+            android:rotationY="180"
+            android:scaleType="centerInside"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            android:src="@drawable/skip_button"
+            android:translationY="-5dp" />
 
         <ImageView
-            android:id="@+id/imgSkipBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-            android:src="@android:drawable/ic_media_previous" />
+            android:id="@+id/imgRewind"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:adjustViewBounds="false"
+            android:scaleType="centerInside"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            android:src="@drawable/rewind_button"
+            android:translationY="-5dp" />
 
         <ImageView
             android:id="@+id/imgStartPause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-            android:src="@android:drawable/ic_media_play" />
-
-        <ImageView
-            android:id="@+id/imgSkipNext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-            android:src="@android:drawable/ic_media_next" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:adjustViewBounds="false"
+            android:scaleType="centerInside"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            android:src="@drawable/play"
+            android:translationY="-5dp" />
 
         <ImageView
             android:id="@+id/imgFastForward"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-            android:src="@android:drawable/ic_media_ff" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:adjustViewBounds="false"
+            android:rotationY="180"
+            android:scaleType="centerInside"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            android:src="@drawable/rewind_button"
+            android:translationY="-5dp" />
+
+        <ImageView
+            android:id="@+id/imgSkipNext"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:adjustViewBounds="false"
+            android:scaleType="centerInside"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            android:src="@drawable/skip_button"
+            android:translationY="-5dp" />
+
     </LinearLayout>
 
 </LinearLayout>
