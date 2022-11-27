@@ -7,7 +7,6 @@ import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
 import com.spotify.protocol.types.Track;
-import com.spotify.protocol.types.Uri;
 
 import java.util.Vector;
 
@@ -18,7 +17,6 @@ public class SpotifyDiffuseur {
     private static final String CLIENT_ID = "b2b20661ad71475b81e4b19305de50e6";
     private static final String REDIRECT_URI = "com.example.tp1clonespotify://callback";
     private SpotifyAppRemote mSpotifyAppRemote;
-    private String playlist = "spotify:playlist:2I9t0VoXbhjgCwlQ4LasO9";
 
 
     public static SpotifyDiffuseur getInstance(Context context){
@@ -64,6 +62,10 @@ public class SpotifyDiffuseur {
 
     }
 
+    public void seDeconnecter(){
+        SpotifyAppRemote.disconnect(this.getmSpotifyAppRemote());
+    }
+
     public void play(String playlist) {
         // Play a playlist
         mSpotifyAppRemote.getPlayerApi().play(playlist);
@@ -92,6 +94,7 @@ public class SpotifyDiffuseur {
                         vector.add(track.name);
                         vector.add(track.artist.name);
                         vector.add(track.album.name);
+
                     }
                 });
         return vector;

@@ -3,26 +3,24 @@ package com.example.tp1clonespotify;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.spotify.android.appremote.api.ConnectionParams;
-import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
 import com.spotify.protocol.types.Track;
 
-import java.util.Vector;
-
-public class MainActivity extends AppCompatActivity {
+public class PlayerActivity extends AppCompatActivity {
 
     private static final String CLIENT_ID = "b2b20661ad71475b81e4b19305de50e6";
     private static final String REDIRECT_URI = "com.example.tp1clonespotify://callback";
     private SpotifyAppRemote mSpotifyAppRemote;
-    Button btnPlay, btnPause, btnNext, btnBack;
-    SpotifyDiffuseur instance;
-    TextView champChanson, champArtiste, champAlbum;
+    private ImageView imgStartPause, imgRewind, imgSkipBack, imgSkipNext, imgReturn, imgFastForward;
+    private SpotifyDiffuseur instance;
+    private TextView playlistName, songTitle, artistName;
+    private boolean isPlayBtn = true;
+
 
     private String playlist = "spotify:playlist:2I9t0VoXbhjgCwlQ4LasO9";
 
@@ -30,16 +28,16 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        btnPlay = findViewById(R.id.btnPlay);
-        btnPause = findViewById(R.id.btnStop);
-        btnNext = findViewById(R.id.btnSkip);
-        btnBack  = findViewById(R.id.btnBack);
-        champChanson = findViewById(R.id.champChanson);
-        champArtiste = findViewById(R.id.champArtiste);
-        champAlbum = findViewById(R.id.champAlbum);
+        setContentView(R.layout.activity_player);
+        imgStartPause = findViewById(R.id.imgStartPause);
+        imgRewind = findViewById(R.id.imgRewind);
+        imgSkipBack = findViewById(R.id.imgSkipBack);
+        imgSkipNext  = findViewById(R.id.imgSkipNext);
+        playlistName = findViewById(R.id.playlistName);
+        songTitle = findViewById(R.id.songTitle);
+        artistName = findViewById(R.id.songArtist);
 
-        instance = SpotifyDiffuseur.getInstance(MainActivity.this);
+        instance = SpotifyDiffuseur.getInstance(PlayerActivity.this);
 
     }
 
@@ -75,22 +73,29 @@ public class MainActivity extends AppCompatActivity {
 //                        }
 //                    });
 
-        btnPlay.setOnClickListener(source -> {
-            instance.play(playlist);
-//            Vector<String>  vector = new Vector<>();
-//            vector = instance.getTrackInfos();
+        imgStartPause.setOnClickListener(source -> {
+            if (!isPlayBtn){
+                instance.play(playlist);
+                instance.getmSpotifyAppRemote().getPlayerApi()
+                        .subscribeToPlayerState()
+                        .setEventCallback(playerState -> {
+                            final Track track = playerState.track;
 
-            instance.getmSpotifyAppRemote().getPlayerApi()
-                    .subscribeToPlayerState()
-                    .setEventCallback(playerState -> {
-                        final Track track = playerState.track;
+                            if (track != null) {
+                                playlistName.setText(track.name);
+                                songTitle.setText(track.artist.name);
+                                artistName.setText(track.album.name);
+                            }
+                        });
+                imgStartPause.setImageDrawable(R.drawable.);
+                isPlayBtn = true;
+            }
+            else{
 
-                        if (track != null) {
-                            champChanson.setText(track.name);
-                            champArtiste.setText(track.artist.name);
-                            champAlbum.setText(track.album.name);
-                        }
-                    });
+            }
+
+
+
 
 
 
@@ -114,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        SpotifyAppRemote.disconnect(mSpotifyAppRemote);
+        instance.seDeconnecter();
     }
 
 //    private void startPlaylist() {
