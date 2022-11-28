@@ -3,18 +3,15 @@ package com.example.tp1clonespotify;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.net.Uri;
 
 import com.spotify.android.appremote.api.SpotifyAppRemote;
-import com.spotify.protocol.types.ImageUri;
+import com.spotify.protocol.client.CallResult;
 import com.spotify.protocol.types.Track;
-
-import java.net.URI;
 
 
 public class PlayerActivity extends AppCompatActivity {
@@ -24,7 +21,7 @@ public class PlayerActivity extends AppCompatActivity {
     private SpotifyAppRemote mSpotifyAppRemote;
     private ImageView imgStartPause, imgRewind, imgSkipBack, imgSkipNext, imgReturn, imgFastForward;
     private SpotifyDiffuseur instance;
-    private TextView playlistName, songTitle, artistName;
+    private TextView artistName, songTitle, albumName;
     private boolean isPlayBtn = true;
     private ImageView songImage;
     private Uri uri;
@@ -40,9 +37,9 @@ public class PlayerActivity extends AppCompatActivity {
         imgRewind = findViewById(R.id.imgRewind);
         imgSkipBack = findViewById(R.id.imgSkipBack);
         imgSkipNext  = findViewById(R.id.imgSkipNext);
-        playlistName = findViewById(R.id.playlistName);
+        artistName = findViewById(R.id.playlistName);
         songTitle = findViewById(R.id.songTitle);
-        artistName = findViewById(R.id.songArtist);
+        albumName = findViewById(R.id.songArtist);
         songImage = findViewById(R.id.songImg);
 
         instance = SpotifyDiffuseur.getInstance(PlayerActivity.this);
@@ -91,13 +88,15 @@ public class PlayerActivity extends AppCompatActivity {
                             final Track track = playerState.track;
 
                             if (track != null) {
-                                playlistName.setText(track.name);
-                                songTitle.setText(track.artist.name);
-                                artistName.setText(track.album.name);
-                                songImage.setImageURI(Uri.parse(track.imageUri.toString()));
-
+                                artistName.setText(track.artist.name);
+                                songTitle.setText(track.name);
+                                albumName.setText(track.album.name);
+                                instance.getmSpotifyAppRemote().getImagesApi().getImage(track.imageUri).setResultCallback(data -> {
+                                    songImage.setImageBitmap(data);
+                                });
                             }
                         });
+
                 imgStartPause.setImageDrawable(getResources().getDrawable(R.drawable.pause));
                 isPlayBtn = true;
             }
@@ -106,12 +105,6 @@ public class PlayerActivity extends AppCompatActivity {
                 isPlayBtn = false;
                 imgStartPause.setImageDrawable(getResources().getDrawable(R.drawable.play));
             }
-
-
-
-
-
-
         });
 
         imgSkipNext.setOnClickListener(source -> {
@@ -124,12 +117,29 @@ public class PlayerActivity extends AppCompatActivity {
 
     }
 
+    private void rafraichir(Chanson chanson){
+        artistName.setText(chanson.getArtiste().getNom());
+        songTitle.setText(chanson.getNom());
+        albumName.setText(chanson.getAlbum());
+        songImage.setImageBitmap(chanson.getImgChanson());
+    }
+
+    private class CallBackImage implements CallResult.ResultCallback{
+        @Override
+        public void onResult(Object data) {
+            Bitmap b = (Bitmap)data;
+        }
+    }
+
 
     @Override
     protected void onStop() {
         super.onStop();
+        instance.pause();
         instance.seDeconnecter();
     }
+
+
 
 //    private void startPlaylist() {
 //        // Play a playlist
@@ -148,4 +158,9 @@ public class PlayerActivity extends AppCompatActivity {
 //                    }
 //                });
 //    }
+
+
+
 }
+
+

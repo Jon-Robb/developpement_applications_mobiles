@@ -1,14 +1,19 @@
 package com.example.tp1clonespotify;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
+import com.spotify.protocol.client.CallResult;
+import com.spotify.protocol.client.Subscription;
+import com.spotify.protocol.types.PlayerState;
 import com.spotify.protocol.types.Track;
 
 import java.util.Vector;
+import java.util.concurrent.Flow;
 
 public class SpotifyDiffuseur {
 
@@ -83,21 +88,21 @@ public class SpotifyDiffuseur {
         mSpotifyAppRemote.getPlayerApi().skipPrevious();
     }
 
-    public Vector<String> getTrackInfos(){
-        Vector<String> vector = new Vector<>();
-        mSpotifyAppRemote.getPlayerApi()
-                .subscribeToPlayerState()
-                .setEventCallback(playerState -> {
-                    final Track track = playerState.track;
+    public void subscription(){
 
-                    if (track != null) {
-                        vector.add(track.name);
-                        vector.add(track.artist.name);
-                        vector.add(track.album.name);
+        this.mSpotifyAppRemote.getPlayerApi()
+                .subscribeToPlayerState()
+                .setEventCallback(playerState ->{
+                    final Track track = playerState.track;
+                    if (track != null){
+                        Chanson chanson = new Chanson(track.name, new Artiste(track.artist.name), track.album.name);
 
                     }
-                });
-        return vector;
+                })
+
     }
+
+
+
 
 }
