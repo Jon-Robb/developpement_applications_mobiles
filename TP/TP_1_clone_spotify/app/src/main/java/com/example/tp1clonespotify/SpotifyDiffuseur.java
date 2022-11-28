@@ -23,7 +23,6 @@ public class SpotifyDiffuseur {
     private static final String REDIRECT_URI = "com.example.tp1clonespotify://callback";
     private SpotifyAppRemote mSpotifyAppRemote;
 
-
     public static SpotifyDiffuseur getInstance(Context context){
         if(instance == null){
             instance = new SpotifyDiffuseur(context);
@@ -39,6 +38,10 @@ public class SpotifyDiffuseur {
         this.context = context;
     }
 
+    public void setmSpotifyAppRemote(SpotifyAppRemote mSpotifyAppRemote) {
+        this.mSpotifyAppRemote = mSpotifyAppRemote;
+    }
+
     public void seConnecter(){
 
         ConnectionParams connectionParams =
@@ -51,7 +54,7 @@ public class SpotifyDiffuseur {
                 new Connector.ConnectionListener() {
 
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
-                        mSpotifyAppRemote = spotifyAppRemote;
+                        setmSpotifyAppRemote(spotifyAppRemote);
                         Log.d("MainActivity", "Connected! Yay!");
 
                         // Now you can start interacting with App Remote
@@ -64,7 +67,6 @@ public class SpotifyDiffuseur {
                         // Something went wrong when attempting to connect! Handle errors here
                     }
                 });
-
     }
 
     public void seDeconnecter(){
@@ -88,21 +90,17 @@ public class SpotifyDiffuseur {
         mSpotifyAppRemote.getPlayerApi().skipPrevious();
     }
 
-    public void subscription(){
-
+    public void rafraichir(){
         this.mSpotifyAppRemote.getPlayerApi()
                 .subscribeToPlayerState()
                 .setEventCallback(playerState ->{
                     final Track track = playerState.track;
                     if (track != null){
                         Chanson chanson = new Chanson(track.name, new Artiste(track.artist.name), track.album.name);
-
+                        this.mSpotifyAppRemote.getImagesApi().getImage(track.imageUri).setResultCallback(imgChanson -> {
+                            ((PlayerActivity) this.context).rafraichir(chanson, imgChanson);
+                        });
                     }
-                })
-
+                });
     }
-
-
-
-
 }
