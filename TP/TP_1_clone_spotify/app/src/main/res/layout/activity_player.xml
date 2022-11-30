@@ -65,22 +65,25 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:textAlignment="center">
 
-        <TextView
+        <Chronometer
             android:id="@+id/timeElapsed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView" />
+            android:countDown="false" />
 
-        <TextView
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Chronometer
             android:id="@+id/timeLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView"
-            android:textAlignment="textEnd" />
+            android:countDown="true" />
     </LinearLayout>
 
     <LinearLayout

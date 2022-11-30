@@ -12,6 +12,7 @@ import com.spotify.protocol.client.CallResult;
 import com.spotify.protocol.client.Subscription;
 import com.spotify.protocol.types.PlayerState;
 import com.spotify.protocol.types.Track;
+import com.spotify.protocol.types.Uri;
 
 import java.util.Vector;
 import java.util.concurrent.Flow;
@@ -62,8 +63,8 @@ public class SpotifyDiffuseur {
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
                         mSpotifyAppRemote = spotifyAppRemote;
                         Log.d("MainActivity", "Connected! Yay!");
-
                         instance.play(playlist);
+                        ((PlayerActivity) context).startChronos();
                         rafraichir();
                         // Now you can start interacting with App Remote
 
@@ -82,8 +83,6 @@ public class SpotifyDiffuseur {
 
                         // Something went wrong when attempting to connect! Handle errors here
                     }
-
-
 
                 });
 
@@ -106,18 +105,25 @@ public class SpotifyDiffuseur {
 
     public void pause(){
         mSpotifyAppRemote.getPlayerApi().pause();
+        ((PlayerActivity) context).stopChronos();
     }
 
     public void resume(){
         mSpotifyAppRemote.getPlayerApi().resume();
+        ((PlayerActivity) context).startChronos();
     }
 
     public void next(){
         mSpotifyAppRemote.getPlayerApi().skipNext();
+        ((PlayerActivity) context).startChronos();
     }
 
     public void back(){
         mSpotifyAppRemote.getPlayerApi().skipPrevious();
+    }
+
+    public void fastForward(){
+        mSpotifyAppRemote.getPlayerApi().getPlayerState();
     }
 
     public void rafraichir(){
@@ -125,12 +131,16 @@ public class SpotifyDiffuseur {
                 .subscribeToPlayerState()
                 .setEventCallback(playerState ->{
                     final Track track = playerState.track;
-                    if (track != null && !playerState.isPaused){
+                    String uri = track.uri;
+                    if (track != null){
                         Chanson chanson = new Chanson(track.name, new Artiste(track.artist.name), track.album.name);
                         mSpotifyAppRemote.getImagesApi().getImage(track.imageUri).setResultCallback(imgChanson -> {
-                            ((PlayerActivity) context).rafraichir(chanson, imgChanson);
                             setvPlayerState(playerState);
+                            ((PlayerActivity) context).setSeekBarMax((int)track.duration / 1000, (int) playerState.playbackPosition / 1000);
+                            ((PlayerActivity) context).setChronos(playerState.playbackPosition / 1000, playerState.track.duration - playerState.playbackPosition/ 1000);
+                            ((PlayerActivity) context).rafraichir(chanson, imgChanson);
                         });
+
                     }
                 });
     }

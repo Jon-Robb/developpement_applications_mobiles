@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -19,10 +21,12 @@ public class PlayerActivity extends AppCompatActivity {
 
     private ImageView imgStartPause, imgRewind, imgSkipBack, imgSkipNext, imgReturn, imgFastForward;
     private SpotifyDiffuseur instance;
-    private TextView artistName, songTitle, albumName, timeElapsed, timeLeft;
+    private TextView artistName, songTitle, albumName;
     private boolean isPlayBtn = true;
     private ImageView songImage;
     private SeekBar seekBar;
+    private Chronometer timeElapsed, timeLeft;
+    int count = 0;
 
     private String playlist = "spotify:playlist:2I9t0VoXbhjgCwlQ4LasO9";
 
@@ -44,6 +48,7 @@ public class PlayerActivity extends AppCompatActivity {
         imgStartPause.setImageDrawable(getResources().getDrawable(R.drawable.pause));
         timeElapsed = findViewById(R.id.timeElapsed);
         timeLeft = findViewById(R.id.timeLeft);
+        imgFastForward = findViewById(R.id.imgFastForward);
 
     }
 
@@ -54,29 +59,18 @@ public class PlayerActivity extends AppCompatActivity {
 
         instance.seConnecter(playlist);
 
-        if (instance.getvPlayerState() != null){
-            if (instance.getvPlayerState().track != null){
-                seekBar.setMax((int) instance.getvPlayerState().track.duration / 1000);
-                seekBar.setProgress((int)instance.getvPlayerState().track.duration / 1000);
-                timeLeft.setText(String.valueOf((int)instance.getvPlayerState().track.duration));
-            }
-        }
-
-
         imgStartPause.setOnClickListener(source -> {
             if (!isPlayBtn){
                 instance.resume();
                 imgStartPause.setImageDrawable(getResources().getDrawable(R.drawable.pause));
                 isPlayBtn = true;
-                timeLeft.setText(String.valueOf((int)instance.getvPlayerState().track.duration));
-                instance.rafraichir();
-
             }
             else{
                 instance.pause();
-                isPlayBtn = false;
                 imgStartPause.setImageDrawable(getResources().getDrawable(R.drawable.play));
+                isPlayBtn = false;
             }
+            instance.rafraichir();
         });
 
         imgSkipNext.setOnClickListener(source -> {
@@ -84,9 +78,20 @@ public class PlayerActivity extends AppCompatActivity {
         });
 
         imgSkipBack.setOnClickListener(source -> {
-            System.out.println("clic");
             instance.back();
         });
+
+//        imgFastForward.setOnLongClickListener(source -> {
+//
+//        });
+
+
+        timeElapsed.setOnChronometerTickListener(chronometer ->{
+            ++count;
+            seekBar.setProgress(count);
+        });
+
+
     }
 
     public void rafraichir(Chanson chanson, Bitmap imgChanson){
@@ -96,11 +101,32 @@ public class PlayerActivity extends AppCompatActivity {
         songImage.setImageBitmap(imgChanson);
     }
 
+    public void setSeekBarMax(int value, int progress){
+        seekBar.setMax(value);
+        seekBar.setProgress(progress);
+    }
+
+    public void setChronos(long base, long duration){
+        timeElapsed.setBase(base);
+        timeLeft.setBase(duration);
+    }
+
+    public void startChronos(){
+        timeElapsed.start();
+        timeLeft.start();
+    }
+
+    public void stopChronos(){
+        timeLeft.stop();
+        timeElapsed.stop();
+    }
+
+
     @Override
     protected void onStop() {
         super.onStop();
-        instance.pause();
-        instance.seDeconnecter();
+//        instance.pause();
+//        instance.seDeconnecter();
     }
 }
 
