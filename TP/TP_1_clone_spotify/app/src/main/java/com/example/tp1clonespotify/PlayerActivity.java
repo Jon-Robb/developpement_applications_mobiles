@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.net.Uri;
 
@@ -21,6 +22,7 @@ public class PlayerActivity extends AppCompatActivity {
     private TextView artistName, songTitle, albumName;
     private boolean isPlayBtn = true;
     private ImageView songImage;
+    private SeekBar seekBar;
 
     private String playlist = "spotify:playlist:2I9t0VoXbhjgCwlQ4LasO9";
 
@@ -37,7 +39,10 @@ public class PlayerActivity extends AppCompatActivity {
         songTitle = findViewById(R.id.songTitle);
         albumName = findViewById(R.id.songArtist);
         songImage = findViewById(R.id.songImg);
+        seekBar = findViewById(R.id.seekBar);
         instance = SpotifyDiffuseur.getInstance(PlayerActivity.this);
+        imgStartPause.setImageDrawable(getResources().getDrawable(R.drawable.pause));
+
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -45,11 +50,15 @@ public class PlayerActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        instance.seConnecter();
+        instance.seConnecter(playlist);
+
+        if (instance.getvPlayerState().track != null){
+            seekBar.setMax((int) instance.getvPlayerState().track.duration / 1000);
+        }
+
         imgStartPause.setOnClickListener(source -> {
             if (!isPlayBtn){
-                instance.play(playlist);
-
+                instance.resume();
                 instance.rafraichir();
                 imgStartPause.setImageDrawable(getResources().getDrawable(R.drawable.pause));
                 isPlayBtn = true;
@@ -66,6 +75,7 @@ public class PlayerActivity extends AppCompatActivity {
         });
 
         imgSkipBack.setOnClickListener(source -> {
+            System.out.println("clic");
             instance.back();
         });
     }

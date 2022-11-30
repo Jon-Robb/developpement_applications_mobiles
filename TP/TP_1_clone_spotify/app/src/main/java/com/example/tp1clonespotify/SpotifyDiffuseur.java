@@ -3,6 +3,7 @@ package com.example.tp1clonespotify;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.widget.SeekBar;
 
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
@@ -22,6 +23,7 @@ public class SpotifyDiffuseur {
     private static final String CLIENT_ID = "b2b20661ad71475b81e4b19305de50e6";
     private static final String REDIRECT_URI = "com.example.tp1clonespotify://callback";
     private SpotifyAppRemote mSpotifyAppRemote;
+    private PlayerState vPlayerState;
 
     public static SpotifyDiffuseur getInstance(Context context){
         if(instance == null){
@@ -34,15 +36,15 @@ public class SpotifyDiffuseur {
         return mSpotifyAppRemote;
     }
 
+    public PlayerState getvPlayerState() {
+        return vPlayerState;
+    }
+
     private SpotifyDiffuseur (Context context){
         this.context = context;
     }
 
-    public void setmSpotifyAppRemote(SpotifyAppRemote mSpotifyAppRemote) {
-        this.mSpotifyAppRemote = mSpotifyAppRemote;
-    }
-
-    public void seConnecter(){
+    public void seConnecter(String playlist){
 
         ConnectionParams connectionParams =
                 new ConnectionParams.Builder(CLIENT_ID)
@@ -54,11 +56,18 @@ public class SpotifyDiffuseur {
                 new Connector.ConnectionListener() {
 
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
-                        setmSpotifyAppRemote(spotifyAppRemote);
+                        mSpotifyAppRemote = spotifyAppRemote;
                         Log.d("MainActivity", "Connected! Yay!");
 
+                        instance.play(playlist);
+                        rafraichir();
                         // Now you can start interacting with App Remote
 
+                        mSpotifyAppRemote.getPlayerApi()
+                                .subscribeToPlayerState()
+                                .setEventCallback(playerState ->{
+                                    vPlayerState = playerState;
+                                });
                     }
 
                     public void onFailure(Throwable throwable) {
@@ -67,10 +76,17 @@ public class SpotifyDiffuseur {
                         // Something went wrong when attempting to connect! Handle errors here
                     }
                 });
+
+
+
+    }
+
+    public void setSeekBar(SeekBar sb, int value){
+        sb.setMax(value);
     }
 
     public void seDeconnecter(){
-        SpotifyAppRemote.disconnect(this.getmSpotifyAppRemote());
+        SpotifyAppRemote.disconnect(mSpotifyAppRemote);
     }
 
     public void play(String playlist) {
@@ -82,6 +98,10 @@ public class SpotifyDiffuseur {
         mSpotifyAppRemote.getPlayerApi().pause();
     }
 
+    public void resume(){
+        mSpotifyAppRemote.getPlayerApi().resume();
+    }
+
     public void next(){
         mSpotifyAppRemote.getPlayerApi().skipNext();
     }
@@ -91,16 +111,20 @@ public class SpotifyDiffuseur {
     }
 
     public void rafraichir(){
-        this.mSpotifyAppRemote.getPlayerApi()
+        mSpotifyAppRemote.getPlayerApi()
                 .subscribeToPlayerState()
                 .setEventCallback(playerState ->{
                     final Track track = playerState.track;
-                    if (track != null){
+                    if (track != null && !playerState.isPaused){
                         Chanson chanson = new Chanson(track.name, new Artiste(track.artist.name), track.album.name);
-                        this.mSpotifyAppRemote.getImagesApi().getImage(track.imageUri).setResultCallback(imgChanson -> {
-                            ((PlayerActivity) this.context).rafraichir(chanson, imgChanson);
+                        mSpotifyAppRemote.getImagesApi().getImage(track.imageUri).setResultCallback(imgChanson -> {
+                            ((PlayerActivity) context).rafraichir(chanson, imgChanson);
+
                         });
                     }
                 });
     }
+
+
+
 }
