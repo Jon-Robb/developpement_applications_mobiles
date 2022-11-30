@@ -40,6 +40,10 @@ public class SpotifyDiffuseur {
         return vPlayerState;
     }
 
+    public void setvPlayerState(PlayerState vPlayerState) {
+        this.vPlayerState = vPlayerState;
+    }
+
     private SpotifyDiffuseur (Context context){
         this.context = context;
     }
@@ -66,7 +70,10 @@ public class SpotifyDiffuseur {
                         mSpotifyAppRemote.getPlayerApi()
                                 .subscribeToPlayerState()
                                 .setEventCallback(playerState ->{
-                                    vPlayerState = playerState;
+                                    final Track track = playerState.track;
+                                    if (track != null){
+                                        setvPlayerState(playerState);
+                                    }
                                 });
                     }
 
@@ -75,6 +82,9 @@ public class SpotifyDiffuseur {
 
                         // Something went wrong when attempting to connect! Handle errors here
                     }
+
+
+
                 });
 
 
@@ -119,7 +129,7 @@ public class SpotifyDiffuseur {
                         Chanson chanson = new Chanson(track.name, new Artiste(track.artist.name), track.album.name);
                         mSpotifyAppRemote.getImagesApi().getImage(track.imageUri).setResultCallback(imgChanson -> {
                             ((PlayerActivity) context).rafraichir(chanson, imgChanson);
-
+                            setvPlayerState(playerState);
                         });
                     }
                 });

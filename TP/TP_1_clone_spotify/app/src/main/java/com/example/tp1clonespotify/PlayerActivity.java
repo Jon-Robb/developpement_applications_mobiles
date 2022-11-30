@@ -19,7 +19,7 @@ public class PlayerActivity extends AppCompatActivity {
 
     private ImageView imgStartPause, imgRewind, imgSkipBack, imgSkipNext, imgReturn, imgFastForward;
     private SpotifyDiffuseur instance;
-    private TextView artistName, songTitle, albumName;
+    private TextView artistName, songTitle, albumName, timeElapsed, timeLeft;
     private boolean isPlayBtn = true;
     private ImageView songImage;
     private SeekBar seekBar;
@@ -42,6 +42,8 @@ public class PlayerActivity extends AppCompatActivity {
         seekBar = findViewById(R.id.seekBar);
         instance = SpotifyDiffuseur.getInstance(PlayerActivity.this);
         imgStartPause.setImageDrawable(getResources().getDrawable(R.drawable.pause));
+        timeElapsed = findViewById(R.id.timeElapsed);
+        timeLeft = findViewById(R.id.timeLeft);
 
     }
 
@@ -52,16 +54,23 @@ public class PlayerActivity extends AppCompatActivity {
 
         instance.seConnecter(playlist);
 
-        if (instance.getvPlayerState().track != null){
-            seekBar.setMax((int) instance.getvPlayerState().track.duration / 1000);
+        if (instance.getvPlayerState() != null){
+            if (instance.getvPlayerState().track != null){
+                seekBar.setMax((int) instance.getvPlayerState().track.duration / 1000);
+                seekBar.setProgress((int)instance.getvPlayerState().track.duration / 1000);
+                timeLeft.setText(String.valueOf((int)instance.getvPlayerState().track.duration));
+            }
         }
+
 
         imgStartPause.setOnClickListener(source -> {
             if (!isPlayBtn){
                 instance.resume();
-                instance.rafraichir();
                 imgStartPause.setImageDrawable(getResources().getDrawable(R.drawable.pause));
                 isPlayBtn = true;
+                timeLeft.setText(String.valueOf((int)instance.getvPlayerState().track.duration));
+                instance.rafraichir();
+
             }
             else{
                 instance.pause();
