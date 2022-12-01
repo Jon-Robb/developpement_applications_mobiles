@@ -18,10 +18,6 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
 
     ViewPager2 viewPager;
     ScreenSlidePagerAdapter adapter;
-
-
-
-
     Membre.Builder m;
 
     @Override

@@ -55,10 +55,12 @@ public class FinFragment extends Fragment {
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
                 oos.writeObject(membre);
                 oos.close();
-
+                getActivity().finish();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
 
         }
     }
