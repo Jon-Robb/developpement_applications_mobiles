@@ -52,6 +52,8 @@ public class DeuxiemeFragment extends Fragment {
         @Override
         public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
+            texteNiveau.setText(( "Quel est votre niveau d'activité actuel :  "  + seekBar.getProgress()));
+
         }
 
         @Override
@@ -61,8 +63,10 @@ public class DeuxiemeFragment extends Fragment {
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
+            ConteneurFragmentsActivity activity = (ConteneurFragmentsActivity)getActivity();
+            assert activity != null;
+            activity.m.setDegre(seekBar.getProgress());
 
-            // à compléter
         }
     }
 }

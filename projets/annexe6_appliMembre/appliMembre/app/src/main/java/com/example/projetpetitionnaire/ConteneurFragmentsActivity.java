@@ -60,7 +60,7 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         //seulement un item
-
+        viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
         return true;
     }
 
@@ -71,7 +71,7 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
 
             super.onBackPressed();
         } else {
-
+            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
 
         }
     }
@@ -93,17 +93,24 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
 
                return new DebutFragment();
             }
-            else // position 1
+            else if (position == 1)// position 1
             {
                return new DeuxiemeFragment();
             }
-            // à compléter
+            else if (position == 2){
+                return new TroisiemeFragment();
+            }
+            else{
+                return new FinFragment();
+            }
 
         }
 
         @Override
         public int getItemCount() {
-            return 2;
+
+            return 4;
+
         }
     }
 
@@ -115,7 +122,6 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
         @Override
         public void onPageSelected(int position) {
             super.onPageSelected(position);
-            System.out.println (position);
         }
     }
 
