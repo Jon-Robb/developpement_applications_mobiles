@@ -5,25 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.net.Uri;
-
-import com.spotify.android.appremote.api.SpotifyAppRemote;
-import com.spotify.protocol.client.CallResult;
-import com.spotify.protocol.types.Track;
 
 
 public class PlayerActivity extends AppCompatActivity {
 
     private ImageView imgStartPause, imgRewind, imgSkipBack, imgSkipNext, imgReturn, imgFastForward;
     private SpotifyDiffuseur instance;
-    private TextView artistName, songTitle, albumName;
+    private TextView playlistName, songTitle, albumName;
     private boolean isPlayBtn = true;
-    private ImageView songImage;
+    private ImageView songImage, playlistMenu;
     private SeekBar seekBar;
     private Chronometer timeElapsed, timeLeft;
     int count = 0;
@@ -39,7 +33,7 @@ public class PlayerActivity extends AppCompatActivity {
         imgRewind = findViewById(R.id.imgRewind);
         imgSkipBack = findViewById(R.id.imgSkipBack);
         imgSkipNext  = findViewById(R.id.imgSkipNext);
-        artistName = findViewById(R.id.playlistName);
+        playlistName = findViewById(R.id.playlistName);
         songTitle = findViewById(R.id.songTitle);
         albumName = findViewById(R.id.songArtist);
         songImage = findViewById(R.id.songImg);
@@ -49,6 +43,7 @@ public class PlayerActivity extends AppCompatActivity {
         timeElapsed = findViewById(R.id.timeElapsed);
         timeLeft = findViewById(R.id.timeLeft);
         imgFastForward = findViewById(R.id.imgFastForward);
+        playlistMenu = findViewById(R.id.playlistMenu);
 
     }
 
@@ -91,11 +86,16 @@ public class PlayerActivity extends AppCompatActivity {
             seekBar.setProgress(count);
         });
 
+        playlistMenu.setOnClickListener(source ->{
+            playlistName.setText("click");
+        });
+
 
     }
 
+
     public void rafraichir(Chanson chanson, Bitmap imgChanson){
-        artistName.setText(chanson.getArtiste().getNom());
+        playlistName.setText(chanson.getArtiste().getNom());
         songTitle.setText(chanson.getNom());
         albumName.setText(chanson.getAlbum());
         songImage.setImageBitmap(imgChanson);
