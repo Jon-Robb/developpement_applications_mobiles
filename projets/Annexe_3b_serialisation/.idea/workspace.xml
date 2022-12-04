@@ -23,20 +23,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="925248a0-a779-4795-88a3-67f1dc8e354f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../Examens/Examen_1/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Examens/Examen_1/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Examens/Examen_1/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Examens/Examen_1/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Examens/Examen_1/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Examens/Examen_1/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Examens/Examen_1/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Examens/Examen_1/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Annexe_2_Fichiers_Android/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/Annexe_3b_serialisation.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Annexe_2_Fichiers_Android/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Annexe_2_Fichiers_Android/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Annexe_2_Fichiers_Android/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Annexe_2_Fichiers_Android/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Annexe_3_serialisation/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Annexe_3_serialisation/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Annexe_3_serialisation/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Annexe_3_serialisation/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/java/com/example/tp1clonespotify/ListePlaylist.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/res/drawable/radiohead.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/res/drawable/radioheadtitle.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/res/drawable/readiohead_logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/java/com/example/tp1clonespotify/ListePlaylis.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/java/com/example/tp1clonespotify/PlayerActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/java/com/example/tp1clonespotify/PlayerActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/java/com/example/tp1clonespotify/Playlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/java/com/example/tp1clonespotify/Playlist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/java/com/example/tp1clonespotify/PlaylistMenuActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/java/com/example/tp1clonespotify/PlaylistMenuActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/res/layout/activity_playlist_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/res/layout/activity_playlist_menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/res/layout/liste_enfant.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/res/layout/liste_enfant.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +44,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2Hrw9MkPdq3TWboe999uvUrTbXD" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -54,6 +55,9 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDK Location" />
     <property name="project.structure.proportion" value="0.17" />

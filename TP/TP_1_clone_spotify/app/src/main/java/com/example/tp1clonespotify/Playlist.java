@@ -12,4 +12,16 @@ public class Playlist {
         this.nbChansons = nbChansons;
         this.duree = duree;
     }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public int getNbChansons() {
+        return nbChansons;
+    }
+
+    public String getDuree() {
+        return duree;
+    }
 }

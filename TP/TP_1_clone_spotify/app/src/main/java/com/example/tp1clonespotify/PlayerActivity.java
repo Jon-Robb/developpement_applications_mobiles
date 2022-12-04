@@ -1,8 +1,11 @@
 package com.example.tp1clonespotify;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.Chronometer;
@@ -20,6 +23,7 @@ public class PlayerActivity extends AppCompatActivity {
     private ImageView songImage, playlistMenu;
     private SeekBar seekBar;
     private Chronometer timeElapsed, timeLeft;
+    ActivityResultLauncher<Intent> lanceur;
     int count = 0;
 
     private String playlist = "spotify:playlist:2I9t0VoXbhjgCwlQ4LasO9";
@@ -44,6 +48,15 @@ public class PlayerActivity extends AppCompatActivity {
         timeLeft = findViewById(R.id.timeLeft);
         imgFastForward = findViewById(R.id.imgFastForward);
         playlistMenu = findViewById(R.id.playlistMenu);
+
+        lanceur = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result->{
+            if (result.getResultCode() == 24){
+                assert result.getData() != null;
+                playlist = result.getData().getStringExtra("uri");
+            }
+        });
+
+
 
     }
 
@@ -87,7 +100,8 @@ public class PlayerActivity extends AppCompatActivity {
         });
 
         playlistMenu.setOnClickListener(source ->{
-            playlistName.setText("click");
+            Intent i = new Intent(PlayerActivity.this, PlaylistMenuActivity.class);
+            lanceur.launch(i);
         });
 
 
