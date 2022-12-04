@@ -15,31 +15,26 @@ import java.util.Vector;
 
 public class PlaylistMenuActivity extends AppCompatActivity {
 
-    private ListView liste;
-    private Vector<Hashtable<String,String>> vec;
-    private ListePlaylist listePlaylist;
-    Ecouteur ec;
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_menu);
-        liste = findViewById(R.id.liste);
+        ListView liste = findViewById(R.id.liste);
 
-        listePlaylist = new ListePlaylist();
-        vec = new Vector<>();
+        ListePlaylist listePlaylist = new ListePlaylist();
+        Vector<Hashtable<String, String>> vec;
 
         vec = listePlaylist.getVecHash();
 
-        String strings[] = {"nom", "nbChansons", "duree"};
-        int integers[] = {R.id.plName, R.id.nbChansons, R.id.duree};
+        String[] strings = {"nom", "nbChansons", "duree"};
+        int[] integers = {R.id.plName, R.id.nbChansons, R.id.duree};
 
         SimpleAdapter simpleAdapter = new SimpleAdapter(PlaylistMenuActivity.this, vec, R.layout.liste_enfant, strings, integers);
 
         liste.setAdapter(simpleAdapter);
 
-        ec = new Ecouteur();
+        Ecouteur ec = new Ecouteur();
 
         liste.setOnItemClickListener(ec);
 

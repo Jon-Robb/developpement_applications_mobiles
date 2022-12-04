@@ -15,7 +15,6 @@ import com.spotify.protocol.types.Track;
 import com.spotify.protocol.types.Uri;
 
 import java.util.Vector;
-import java.util.concurrent.Flow;
 
 public class SpotifyDiffuseur {
 
@@ -25,6 +24,7 @@ public class SpotifyDiffuseur {
     private static final String REDIRECT_URI = "com.example.tp1clonespotify://callback";
     private SpotifyAppRemote mSpotifyAppRemote;
     private PlayerState vPlayerState;
+
 
     public static SpotifyDiffuseur getInstance(Context context){
         if(instance == null){
@@ -90,9 +90,6 @@ public class SpotifyDiffuseur {
 
     }
 
-    public void setSeekBar(SeekBar sb, int value){
-        sb.setMax(value);
-    }
 
     public void seDeconnecter(){
         SpotifyAppRemote.disconnect(mSpotifyAppRemote);
@@ -105,26 +102,20 @@ public class SpotifyDiffuseur {
 
     public void pause(){
         mSpotifyAppRemote.getPlayerApi().pause();
-        ((PlayerActivity) context).stopChronos();
     }
 
     public void resume(){
         mSpotifyAppRemote.getPlayerApi().resume();
-        ((PlayerActivity) context).startChronos();
     }
 
     public void next(){
         mSpotifyAppRemote.getPlayerApi().skipNext();
-        ((PlayerActivity) context).startChronos();
     }
 
     public void back(){
         mSpotifyAppRemote.getPlayerApi().skipPrevious();
     }
 
-    public void fastForward(){
-        mSpotifyAppRemote.getPlayerApi().getPlayerState();
-    }
 
     public void rafraichir(){
         mSpotifyAppRemote.getPlayerApi()
@@ -137,9 +128,14 @@ public class SpotifyDiffuseur {
                         mSpotifyAppRemote.getImagesApi().getImage(track.imageUri).setResultCallback(imgChanson -> {
                             setvPlayerState(playerState);
                             ((PlayerActivity) context).setSeekBarMax((int)track.duration / 1000, (int) playerState.playbackPosition / 1000);
-                            ((PlayerActivity) context).setChronos(playerState.playbackPosition / 1000, playerState.track.duration - playerState.playbackPosition/ 1000);
                             ((PlayerActivity) context).rafraichir(chanson, imgChanson);
                         });
+                        if (playerState.isPaused) {
+                            ((PlayerActivity) context).stopChronos();
+                        }
+                        else{
+                            ((PlayerActivity) context).startChronos();
+                        }
 
                     }
                 });

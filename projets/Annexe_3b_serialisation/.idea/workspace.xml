@@ -22,20 +22,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="925248a0-a779-4795-88a3-67f1dc8e354f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/java/com/example/tp1clonespotify/ListePlaylist.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/res/drawable/radiohead.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/res/drawable/radioheadtitle.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/res/drawable/readiohead_logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/java/com/example/tp1clonespotify/ListePlaylis.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/java/com/example/tp1clonespotify/PlayerActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/java/com/example/tp1clonespotify/PlayerActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/java/com/example/tp1clonespotify/Playlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/java/com/example/tp1clonespotify/Playlist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/java/com/example/tp1clonespotify/PlaylistMenuActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/java/com/example/tp1clonespotify/PlaylistMenuActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/res/layout/activity_playlist_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/res/layout/activity_playlist_menu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/res/layout/liste_enfant.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/app/src/main/res/layout/liste_enfant.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="925248a0-a779-4795-88a3-67f1dc8e354f" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

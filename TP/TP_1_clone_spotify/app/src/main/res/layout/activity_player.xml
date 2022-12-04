@@ -97,6 +97,11 @@
         android:orientation="horizontal"
         android:paddingTop="40dp">
 
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5" />
+
         <ImageView
             android:id="@+id/imgSkipBack"
             android:layout_width="0dp"
@@ -108,18 +113,6 @@
             android:scaleX="0.75"
             android:scaleY="0.75"
             android:src="@drawable/skip_button"
-            android:translationY="-5dp" />
-
-        <ImageView
-            android:id="@+id/imgRewind"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:adjustViewBounds="false"
-            android:scaleType="centerInside"
-            android:scaleX="0.75"
-            android:scaleY="0.75"
-            android:src="@drawable/rewind_button"
             android:translationY="-5dp" />
 
         <ImageView
@@ -135,19 +128,6 @@
             android:translationY="-5dp" />
 
         <ImageView
-            android:id="@+id/imgFastForward"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:adjustViewBounds="false"
-            android:rotationY="180"
-            android:scaleType="centerInside"
-            android:scaleX="0.75"
-            android:scaleY="0.75"
-            android:src="@drawable/rewind_button"
-            android:translationY="-5dp" />
-
-        <ImageView
             android:id="@+id/imgSkipNext"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -158,6 +138,11 @@
             android:scaleY="0.75"
             android:src="@drawable/skip_button"
             android:translationY="-5dp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5" />
 
     </LinearLayout>
 

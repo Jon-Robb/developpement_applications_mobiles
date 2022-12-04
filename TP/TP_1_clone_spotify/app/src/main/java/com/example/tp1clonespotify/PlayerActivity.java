@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -16,25 +17,24 @@ import android.widget.TextView;
 
 public class PlayerActivity extends AppCompatActivity {
 
-    private ImageView imgStartPause, imgRewind, imgSkipBack, imgSkipNext, imgReturn, imgFastForward;
+    private ImageView imgStartPause, imgSkipBack, imgSkipNext;
     private SpotifyDiffuseur instance;
     private TextView playlistName, songTitle, albumName;
     private boolean isPlayBtn = true;
     private ImageView songImage, playlistMenu;
     private SeekBar seekBar;
     private Chronometer timeElapsed, timeLeft;
-    ActivityResultLauncher<Intent> lanceur;
-    int count = 0;
+    private ActivityResultLauncher<Intent> lanceur;
+    private int seekBarProgress = 0;
 
     private String playlist = "spotify:playlist:2I9t0VoXbhjgCwlQ4LasO9";
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "UseCompatLoadingForDrawables"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
 
         imgStartPause = findViewById(R.id.imgStartPause);
-        imgRewind = findViewById(R.id.imgRewind);
         imgSkipBack = findViewById(R.id.imgSkipBack);
         imgSkipNext  = findViewById(R.id.imgSkipNext);
         playlistName = findViewById(R.id.playlistName);
@@ -46,8 +46,9 @@ public class PlayerActivity extends AppCompatActivity {
         imgStartPause.setImageDrawable(getResources().getDrawable(R.drawable.pause));
         timeElapsed = findViewById(R.id.timeElapsed);
         timeLeft = findViewById(R.id.timeLeft);
-        imgFastForward = findViewById(R.id.imgFastForward);
         playlistMenu = findViewById(R.id.playlistMenu);
+//        timeElapsed.setBase(SystemClock.elapsedRealtime());
+//        timeLeft.setBase(SystemClock.elapsedRealtime());
 
         lanceur = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result->{
             if (result.getResultCode() == 24){
@@ -55,9 +56,6 @@ public class PlayerActivity extends AppCompatActivity {
                 playlist = result.getData().getStringExtra("uri");
             }
         });
-
-
-
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -67,6 +65,12 @@ public class PlayerActivity extends AppCompatActivity {
 
         instance.seConnecter(playlist);
 
+        if (instance.getvPlayerState() != null){
+            if (instance.getvPlayerState().isPaused){
+                isPlayBtn = false;
+            }
+        }
+
         imgStartPause.setOnClickListener(source -> {
             if (!isPlayBtn){
                 instance.resume();
@@ -75,38 +79,28 @@ public class PlayerActivity extends AppCompatActivity {
             }
             else{
                 instance.pause();
+                stopChronos();
                 imgStartPause.setImageDrawable(getResources().getDrawable(R.drawable.play));
                 isPlayBtn = false;
             }
             instance.rafraichir();
         });
 
-        imgSkipNext.setOnClickListener(source -> {
-            instance.next();
-        });
+        imgSkipNext.setOnClickListener(source -> instance.next());
 
-        imgSkipBack.setOnClickListener(source -> {
-            instance.back();
-        });
-
-//        imgFastForward.setOnLongClickListener(source -> {
-//
-//        });
-
+        imgSkipBack.setOnClickListener(source -> instance.back());
 
         timeElapsed.setOnChronometerTickListener(chronometer ->{
-            ++count;
-            seekBar.setProgress(count);
+            ++seekBarProgress;
+            seekBar.setProgress(seekBarProgress);
         });
+
 
         playlistMenu.setOnClickListener(source ->{
             Intent i = new Intent(PlayerActivity.this, PlaylistMenuActivity.class);
             lanceur.launch(i);
         });
-
-
     }
-
 
     public void rafraichir(Chanson chanson, Bitmap imgChanson){
         playlistName.setText(chanson.getArtiste().getNom());
@@ -118,12 +112,11 @@ public class PlayerActivity extends AppCompatActivity {
     public void setSeekBarMax(int value, int progress){
         seekBar.setMax(value);
         seekBar.setProgress(progress);
+        seekBarProgress = progress;
+        timeElapsed.setBase(SystemClock.elapsedRealtime() - seekBarProgress * 1000L);
+        timeLeft.setBase(SystemClock.elapsedRealtime() -(progress - value) * 1000L);
     }
 
-    public void setChronos(long base, long duration){
-        timeElapsed.setBase(base);
-        timeLeft.setBase(duration);
-    }
 
     public void startChronos(){
         timeElapsed.start();
@@ -135,12 +128,9 @@ public class PlayerActivity extends AppCompatActivity {
         timeElapsed.stop();
     }
 
-
     @Override
     protected void onStop() {
         super.onStop();
-//        instance.pause();
-//        instance.seDeconnecter();
     }
 }
 
