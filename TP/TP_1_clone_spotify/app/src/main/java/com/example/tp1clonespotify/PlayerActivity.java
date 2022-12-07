@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.widget.Chronometer;
@@ -19,7 +20,7 @@ public class PlayerActivity extends AppCompatActivity {
 
     private ImageView imgStartPause, imgSkipBack, imgSkipNext;
     private SpotifyDiffuseur instance;
-    private TextView playlistName, songTitle, albumName;
+    private TextView playlistName, songTitle, albumName, lien;
     private boolean isPlayBtn = true;
     private ImageView songImage, playlistMenu;
     private SeekBar seekBar;
@@ -38,6 +39,7 @@ public class PlayerActivity extends AppCompatActivity {
 
         }
 
+        lien = findViewById(R.id.lien);
         imgStartPause = findViewById(R.id.imgStartPause);
         imgSkipBack = findViewById(R.id.imgSkipBack);
         imgSkipNext  = findViewById(R.id.imgSkipNext);
@@ -113,6 +115,12 @@ public class PlayerActivity extends AppCompatActivity {
             Intent i = new Intent(PlayerActivity.this, PlaylistMenuActivity.class);
             lanceur.launch(i);
         });
+
+        lien.setOnClickListener(source ->{
+            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.radiohead.com"));
+            lanceur.launch(i);
+        });
+
     }
 
 
@@ -148,9 +156,14 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-//        instance.seDeconnecter();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        instance.pause();
+        instance.seDeconnecter();
+    }
 }
 
 
