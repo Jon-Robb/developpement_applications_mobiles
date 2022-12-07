@@ -1,0 +1,2 @@
+rootProject.name = "Annexe_8_volley"
+include ':app'
