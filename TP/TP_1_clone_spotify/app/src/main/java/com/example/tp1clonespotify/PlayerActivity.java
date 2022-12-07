@@ -53,6 +53,7 @@ public class PlayerActivity extends AppCompatActivity {
         playlistMenu = findViewById(R.id.playlistMenu);
 
 
+
 //        Le boomerang est lancé lorsque l'usager appuie sur le hamburgermenu qui le mène vers la PlaylistMenuActivity,
 //          il peut sélectionner la playlist de son choix.
         lanceur = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result->{
