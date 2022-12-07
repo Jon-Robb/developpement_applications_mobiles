@@ -66,7 +66,6 @@ public class PlayerActivity extends AppCompatActivity {
         });
     }
 
-
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onStart() {
