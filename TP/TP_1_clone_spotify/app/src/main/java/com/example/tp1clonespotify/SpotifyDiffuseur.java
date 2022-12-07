@@ -16,6 +16,9 @@ import com.spotify.protocol.types.Uri;
 
 import java.util.Vector;
 
+//SpotifyDiffuseur classe de style Singleton, pour gérer les actions qui portent sur la lecture des chansons
+// et la sélection des playlists.
+
 public class SpotifyDiffuseur {
 
     private Context context;
@@ -26,6 +29,7 @@ public class SpotifyDiffuseur {
     private PlayerState vPlayerState;
 
 
+//    getinstance classique
     public static SpotifyDiffuseur getInstance(Context context){
         if(instance == null){
             instance = new SpotifyDiffuseur(context);
@@ -33,9 +37,6 @@ public class SpotifyDiffuseur {
         return  instance;
     }
 
-    public SpotifyAppRemote getmSpotifyAppRemote() {
-        return mSpotifyAppRemote;
-    }
 
     public PlayerState getvPlayerState() {
         return vPlayerState;
@@ -49,7 +50,8 @@ public class SpotifyDiffuseur {
         this.context = context;
     }
 
-    public void seConnecter(String playlist){
+//    Connection à l'Api
+    public void seConnecter(){
 
         ConnectionParams connectionParams =
                 new ConnectionParams.Builder(CLIENT_ID)
@@ -62,11 +64,8 @@ public class SpotifyDiffuseur {
 
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
                         mSpotifyAppRemote = spotifyAppRemote;
-                        Log.d("MainActivity", "Connected! Yay!");
-                        instance.play(playlist);
                         ((PlayerActivity) context).startChronos();
                         rafraichir();
-                        // Now you can start interacting with App Remote
 
                         mSpotifyAppRemote.getPlayerApi()
                                 .subscribeToPlayerState()
@@ -77,17 +76,9 @@ public class SpotifyDiffuseur {
                                     }
                                 });
                     }
-
-                    public void onFailure(Throwable throwable) {
-                        Log.e("MyActivity", throwable.getMessage(), throwable);
-
-                        // Something went wrong when attempting to connect! Handle errors here
-                    }
+                    public void onFailure(Throwable throwable) { }
 
                 });
-
-
-
     }
 
 
@@ -95,8 +86,9 @@ public class SpotifyDiffuseur {
         SpotifyAppRemote.disconnect(mSpotifyAppRemote);
     }
 
+
+//    Fonctions utilitaires pour la lecture des playlists/chansons
     public void play(String playlist) {
-        // Play a playlist
         mSpotifyAppRemote.getPlayerApi().play(playlist);
     }
 
@@ -117,16 +109,18 @@ public class SpotifyDiffuseur {
     }
 
 
+//    Fonction qui rafraichit l'état de la Vue en se servant des informations du playerState
+//      et en se servant des fonctions de refresh dans la vue
     public void rafraichir(){
         mSpotifyAppRemote.getPlayerApi()
                 .subscribeToPlayerState()
                 .setEventCallback(playerState ->{
                     final Track track = playerState.track;
-                    String uri = track.uri;
                     if (track != null){
                         Chanson chanson = new Chanson(track.name, new Artiste(track.artist.name), track.album.name);
                         mSpotifyAppRemote.getImagesApi().getImage(track.imageUri).setResultCallback(imgChanson -> {
                             setvPlayerState(playerState);
+//                            On refresh la Vue (text, image et seekbar) en envoyant les informations de la track
                             ((PlayerActivity) context).setSeekBarMax((int)track.duration / 1000, (int) playerState.playbackPosition / 1000);
                             ((PlayerActivity) context).rafraichir(chanson, imgChanson);
                         });

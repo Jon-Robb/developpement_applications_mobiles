@@ -20,13 +20,18 @@ public class PlaylistMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_menu);
+
+
         ListView liste = findViewById(R.id.liste);
+//        On créer un nouvelle liste de playlist
 
         ListePlaylist listePlaylist = new ListePlaylist();
-        Vector<Hashtable<String, String>> vec;
 
+        Vector<Hashtable<String, String>> vec;
+//       On va chercher les infos de la liste de playlist
         vec = listePlaylist.getVecHash();
 
+//        On construit la liste  complexe
         String[] strings = {"nom", "nbChansons", "duree"};
         int[] integers = {R.id.plName, R.id.nbChansons, R.id.duree};
 
@@ -41,6 +46,7 @@ public class PlaylistMenuActivity extends AppCompatActivity {
 
     }
 
+//    Écouteur classique style 3 étapes du vénérable Éric Labonté
     public class Ecouteur implements AdapterView.OnItemClickListener{
 
         @Override

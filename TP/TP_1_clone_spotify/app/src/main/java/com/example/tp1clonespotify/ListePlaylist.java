@@ -5,9 +5,11 @@ import java.util.Vector;
 
 public class ListePlaylist {
 
+//    Classe qui créé une liste de playlist et qui remplit un vector de hashtable
+//    qui sera utilisé pour créer de toute piece les éléments de la liste complexe
+
     private Vector<Hashtable<String, String>> vecHash;
     private Vector<Playlist> vecPlaylist;
-
 
     public ListePlaylist() {
 
@@ -21,6 +23,7 @@ public class ListePlaylist {
         this.vecPlaylist.add(KidA);
 
         this.vecHash = new Vector<>();
+//        On ajoute les playlist dans une hashtable et ensuite on ajoute cette hashtable a notre vecteur de hashtable
         for (Playlist playlist : this.vecPlaylist){
             Hashtable hashtable = new Hashtable<>();
             hashtable.put("nom", playlist.getNom());

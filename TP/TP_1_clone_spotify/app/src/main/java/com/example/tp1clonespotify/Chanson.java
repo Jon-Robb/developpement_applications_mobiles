@@ -1,15 +1,11 @@
 package com.example.tp1clonespotify;
 
-
-import android.graphics.Bitmap;
-
+//classe utilitaire à la rétention de l'information et pour séparer la vue
 public class Chanson {
 
     private String nom;
     private Artiste artiste;
     private String album;
-    private Bitmap imgChanson;
-
 
     public Chanson(String nom, Artiste artiste, String album) {
         this.nom = nom;
@@ -29,13 +25,6 @@ public class Chanson {
         return album;
     }
 
-    public Bitmap getImgChanson() {
-        return imgChanson;
-    }
-
-    public void setImgChanson(Bitmap imgChanson) {
-        this.imgChanson = imgChanson;
-    }
 }
 
 
