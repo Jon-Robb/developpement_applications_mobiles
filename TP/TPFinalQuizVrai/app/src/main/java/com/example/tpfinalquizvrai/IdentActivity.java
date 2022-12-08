@@ -1,4 +1,4 @@
-package /*votre package*/;
+package com.example.tpfinalquizvrai;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,8 +15,8 @@ import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
 public class IdentActivity extends AppCompatActivity {
 
-    private static final String CLIENT_ID = "votre client id";
-    private static final String REDIRECT_URI = "votre redirect uri";
+    private static final String CLIENT_ID = "97f556ad1ff44514a1090386b6a104e4";
+    private static final String REDIRECT_URI = "com.example.tpfinalquizvrai://callback";
 
     private static final int REQUEST_CODE = 1338;
  
@@ -60,7 +60,7 @@ public class IdentActivity extends AppCompatActivity {
     }
 
     private void startMainActivity() {
-        Intent newintent = new Intent(IdentActivity.this, ???);
+        Intent newintent = new Intent(IdentActivity.this, MainActivity.class);
         startActivity(newintent);
     }
     @Override

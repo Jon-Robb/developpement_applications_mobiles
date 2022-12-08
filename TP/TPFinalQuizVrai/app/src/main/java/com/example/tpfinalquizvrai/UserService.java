@@ -1,4 +1,4 @@
-package /*votre package*/;
+package com.example.tpfinalquizvrai;;
 
 import android.content.SharedPreferences;
 
@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserService {
-
 
     private static final String ENDPOINT = "https://api.spotify.com/v1/me";
     private SharedPreferences msharedPreferences;
