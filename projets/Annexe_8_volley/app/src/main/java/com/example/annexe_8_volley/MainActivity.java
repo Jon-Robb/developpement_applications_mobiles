@@ -28,7 +28,6 @@ import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView textView;
     private ListView liste;
     private RequestQueue queue;
     private StringRequest requete;
