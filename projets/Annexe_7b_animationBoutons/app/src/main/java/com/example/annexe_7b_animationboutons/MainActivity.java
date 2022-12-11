@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         btnTitre = findViewById(R.id.btnTitre);
         btnSplash = findViewById(R.id.btnSplash);
 
+//       Selon le bouton, on va vers l activity correspondante
 
         gaucheDroitebtn.setOnClickListener(source ->{
             i = new Intent(MainActivity.this, GaucheDroiteActivity.class);

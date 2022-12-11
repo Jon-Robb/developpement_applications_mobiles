@@ -20,7 +20,7 @@ public class GaucheDroiteActivity extends AppCompatActivity {
     private ImageView starSprite;
     private ObjectAnimator oa;
     private Path path;
-    private boolean isAnimating = false;
+    private boolean isAnimating = false, isStarted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +49,18 @@ public class GaucheDroiteActivity extends AppCompatActivity {
         oa.setInterpolator(new LinearInterpolator());
 
         btnDemarrer.setOnClickListener(source ->{
-            if (!isAnimating){
+            if (!isAnimating && !isStarted){
                 oa.start();
                 isAnimating = true;
+                isStarted = true;
+            }
+            else if (isAnimating && isStarted){
+                oa.cancel();
+                isAnimating = false;
             }
             else {
-                oa.cancel();
-                isAnimating=false;
+                oa.resume();
+                isAnimating=true;
             }
         });
 
