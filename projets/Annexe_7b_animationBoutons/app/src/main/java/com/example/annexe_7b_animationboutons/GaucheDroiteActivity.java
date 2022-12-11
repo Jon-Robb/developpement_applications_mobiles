@@ -20,7 +20,6 @@ public class GaucheDroiteActivity extends AppCompatActivity {
     private ImageView starSprite;
     private ObjectAnimator oa;
     private Path path;
-    private boolean isAnimating = false, isStarted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +29,7 @@ public class GaucheDroiteActivity extends AppCompatActivity {
         btnDemarrer = findViewById(R.id.btnDemarrer);
         starSprite = findViewById(R.id.starSprite);
 
+//        On utilise un objet path pour definir les mouvements du imageview
         path = new Path();
 
         path.moveTo(-1000,500);
@@ -42,6 +42,7 @@ public class GaucheDroiteActivity extends AppCompatActivity {
         path.lineTo(1500, 500);
 
 
+//        On donne les valeurs qu on veut a l animation
         oa = ObjectAnimator.ofFloat(starSprite, View.X, View.Y, path);
         oa.setRepeatCount(ValueAnimator.INFINITE);
         oa.setRepeatMode(ValueAnimator.REVERSE);
@@ -49,19 +50,16 @@ public class GaucheDroiteActivity extends AppCompatActivity {
         oa.setInterpolator(new LinearInterpolator());
 
         btnDemarrer.setOnClickListener(source ->{
-            if (!isAnimating && !isStarted){
-                oa.start();
-                isAnimating = true;
-                isStarted = true;
-            }
-            else if (isAnimating && isStarted){
-                oa.cancel();
-                isAnimating = false;
-            }
-            else if (!isAnimating) {
-                oa.resume();
-                isAnimating=true;
-            }
+
+           if (!oa.isStarted()){
+               oa.start();
+           }
+           else {
+               oa.cancel();
+           }
+
+
+
         });
 
 
