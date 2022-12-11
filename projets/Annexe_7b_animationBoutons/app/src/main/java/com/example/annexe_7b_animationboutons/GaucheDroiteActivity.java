@@ -58,7 +58,7 @@ public class GaucheDroiteActivity extends AppCompatActivity {
                 oa.cancel();
                 isAnimating = false;
             }
-            else {
+            else if (!isAnimating) {
                 oa.resume();
                 isAnimating=true;
             }
