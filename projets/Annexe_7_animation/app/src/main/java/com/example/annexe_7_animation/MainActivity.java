@@ -19,10 +19,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         conteneur = findViewById(R.id.conteneur);
 
-        int translation = pxToDp(170);
+//        On cree un ObjectAnimator dans lequel on passe le conteneur, un constante de translation
+//          et la valeur 0 pour le ramener a son point d origine (puisqu on l a dessendue manuellement dans
+//          le XML
         oa = ObjectAnimator.ofFloat(conteneur, View.TRANSLATION_Y, 0);
 
-        conteneur.setOnClickListener(source ->{
+        conteneur.setOnClickListener(source -> {
+//            Si le menu est non visible, on start l animation, sinon, on la reverse ( effet de cache/apparant)
+//              et on inverse la booleenne du toggle
             if (!isShowing){
                 oa.start();
             }
@@ -33,15 +37,5 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
-
-    public static int pxToDp(int px) {
-        return (int) (px / Resources.getSystem().getDisplayMetrics().density);
-    }
-
-    public static int dpToPx(int dp) {
-        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
-    }
-
-
 
 }
