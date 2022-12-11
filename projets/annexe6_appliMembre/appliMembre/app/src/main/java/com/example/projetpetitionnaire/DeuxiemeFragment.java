@@ -1,5 +1,6 @@
 package com.example.projetpetitionnaire;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -24,12 +25,9 @@ public class DeuxiemeFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -38,6 +36,7 @@ public class DeuxiemeFragment extends Fragment {
         // Inflate the layout for this fragment
         ViewGroup rootView = (ViewGroup )inflater.inflate(R.layout.fragment_deuxieme, container, false);
 
+//        On va chercher nos views et on ajoute notre ecouteur sur le seekbar
         seek = rootView.findViewById(R.id.seekBar);
         texteNiveau = rootView.findViewById(R.id.champNiveau);
         ec = new Ecouteur();
@@ -49,24 +48,27 @@ public class DeuxiemeFragment extends Fragment {
     private class Ecouteur implements SeekBar.OnSeekBarChangeListener
     {
 
+        @SuppressLint("SetTextI18n")
         @Override
         public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
-            texteNiveau.setText(( "Quel est votre niveau d'activité actuel :  "  + seekBar.getProgress()));
-
+            texteNiveau.setText(("Quel est votre niveau d'activité actuel :  "  + seekBar.getProgress()));
         }
 
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
-
         }
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
+//            On va chercher notre activity pour pouvoir avoir acces au builder de membre
+//              et lorsque la seekbar arrete d etre modifiee, on ajoute l information dans le membre actuel
             ConteneurFragmentsActivity activity = (ConteneurFragmentsActivity)getActivity();
             assert activity != null;
             activity.m.setDegre(seekBar.getProgress());
 
         }
     }
+
+
 }

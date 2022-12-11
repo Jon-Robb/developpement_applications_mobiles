@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         conteneur = findViewById(R.id.conteneur);
         champImage = findViewById(R.id.champImage);
 
+//        On lance notre boomerang dans une methode lambda et on affiche l image
         lanceur = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == Activity.RESULT_OK){
                 assert result.getData() != null;
@@ -65,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
         ec = new Ecouteur();
 
+//      Si l usageer clique sur le btnphoto, on envoie un intent implicite vers la galerie de photos
+//        On specifie que l on s attend a recevoir une image lors du retour.
         btnPhoto.setOnClickListener(source -> {
             Intent i = new Intent(Intent.ACTION_PICK);
             i.setType("image/*");

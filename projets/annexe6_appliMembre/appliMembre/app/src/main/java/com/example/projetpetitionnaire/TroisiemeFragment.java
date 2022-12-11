@@ -22,8 +22,6 @@ public class TroisiemeFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +45,12 @@ public class TroisiemeFragment extends Fragment {
         super.onPause();
 
 //        Membre.Builder m =((ConteneurFragmentsActivity) getActivity()).getM();
+
+//        On va chercher notre activity
         ConteneurFragmentsActivity activity = (ConteneurFragmentsActivity)getActivity();
 
-
+//        si la checkbox est activee, l usager veut donner son age, donc on ajoute l information
+//          dans notre membre grace au builder cree dans l activity principale
         if ( checkBox.isChecked())
 
             activity.m.setAge(Integer.parseInt(texteAge.getText().toString()));
@@ -59,9 +60,6 @@ public class TroisiemeFragment extends Fragment {
 
     private class Ecouteur implements CompoundButton.OnCheckedChangeListener
     {
-
-
-
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
             if ( b)

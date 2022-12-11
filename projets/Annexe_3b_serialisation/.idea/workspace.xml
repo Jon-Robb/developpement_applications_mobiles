@@ -22,7 +22,16 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="925248a0-a779-4795-88a3-67f1dc8e354f" name="Default Changelist" comment="" />
+    <list default="true" id="925248a0-a779-4795-88a3-67f1dc8e354f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../TP/TPFinalQuizVrai/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../TP/TPFinalQuizVrai/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TP/TPFinalQuizVrai/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../TP/TPFinalQuizVrai/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TP/TPFinalQuizVrai/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../TP/TPFinalQuizVrai/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TP/TPFinalQuizVrai/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TP/TP_1_clone_spotify/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Annexe_3_serialisation/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Annexe_3_serialisation/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Annexe_3_serialisation/.idea/runConfigurations.xml" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

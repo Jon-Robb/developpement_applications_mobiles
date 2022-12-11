@@ -14,8 +14,6 @@ import android.widget.RadioGroup;
 
 public class DebutFragment extends Fragment {
 
-
-
     EditText champNom;
     EditText champPrenom;
     RadioGroup groupe;
@@ -24,12 +22,9 @@ public class DebutFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
     }
 
@@ -37,6 +32,7 @@ public class DebutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+//        On transtype le inflater en ViewGroup, pour avoir acces aux views de ce fragment particulier
         ViewGroup parent = (ViewGroup )inflater.inflate(R.layout.fragment_debut, container, false);
         champNom =parent.findViewById(R.id.champNom);
         champPrenom = parent.findViewById(R.id.champPrenom);
@@ -48,7 +44,8 @@ public class DebutFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        // à compléter
+        // onPause veut dire que le fragment a ete change, donc qu on prend les informations et on les
+//           ajoute dans le builder, qui construit un membre au fil des fragments
         if (!champNom.equals("") && !champPrenom.equals("")){
             ConteneurFragmentsActivity activity = (ConteneurFragmentsActivity)getActivity();
             assert activity != null;
@@ -57,9 +54,8 @@ public class DebutFragment extends Fragment {
 
             int id = groupe.getCheckedRadioButtonId();
             RadioButton radioButton = groupe.findViewById(id);
-
             activity.m.setObjectif(radioButton.getText().toString());
-            System.out.println(radioButton.getText().toString());
+
         }
 
 

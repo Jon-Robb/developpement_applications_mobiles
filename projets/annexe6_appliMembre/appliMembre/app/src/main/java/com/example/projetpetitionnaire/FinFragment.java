@@ -37,6 +37,7 @@ public class FinFragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup )inflater.inflate(R.layout.fragment_fin, container, false);
 
+//        Memes etapes que dans les fragments precedants pour aller chercher les views et ajouter l ecouteur
         boutonSauv = rootView.findViewById(R.id.boutonSauvegarder);
         Ecouteur ec = new Ecouteur();
         boutonSauv.setOnClickListener(ec);

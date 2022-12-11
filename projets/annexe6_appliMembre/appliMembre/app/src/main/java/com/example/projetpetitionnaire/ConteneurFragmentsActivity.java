@@ -25,17 +25,18 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        On va chercher le viewpager dans notre xml activity_main, celui ci s occupe de gerer les
+//          fragments et leur position respective
         viewPager = findViewById(R.id.viewpager);
 
+//        On doit creer un adapter pour swiper/slider la page
         adapter = new ScreenSlidePagerAdapter(this);
         // remplir le ViewPager avec un adaptateur
         viewPager.setAdapter(adapter);
-
-
-
-
+//        On doit register pour un call back, losrque les pages sont swiped
         viewPager.registerOnPageChangeCallback(new CallBackPage());
 
+//        on va chercher notre builder, qui construira un membre au fil des fragments
         m = new Membre.Builder();
 
     }
@@ -52,41 +53,39 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
     }
 
 
-    //à compléter
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         //seulement un item
+//        lorsqu on appuie sur le bouton suivant, on avance de un fragment
         viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
         return true;
     }
 
-    // à compléter
     @Override
     public void onBackPressed() {
+//        Si on est a la position 0, on retourne vers l activity de base
         if (viewPager.getCurrentItem() == 0) {
 
             super.onBackPressed();
         } else {
+//            Sinon, on recule d une position dans le viewPager
             viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
 
         }
     }
-
-
 
     public class ScreenSlidePagerAdapter extends FragmentStateAdapter {
         public ScreenSlidePagerAdapter(FragmentActivity fm) {
             super(fm);
         }
 
-
-
+//          On redefini les methodes propres au ScreenSliderPagerAdapter
         @Override
         public Fragment createFragment(int position) {
 
-            if ( position ==0)
+//            Dependament de la position, on retourne le fragment correspondant
+            if ( position == 0 )
             {
-
                return new DebutFragment();
             }
             else if (position == 1)// position 1
@@ -103,14 +102,13 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
         }
 
         @Override
+//        Cette fonction doit retourner un int correspondant au nombre de fragments
         public int getItemCount() {
 
             return 4;
 
         }
     }
-
-
 
 
     private class CallBackPage extends ViewPager2.OnPageChangeCallback
@@ -120,6 +118,5 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
             super.onPageSelected(position);
         }
     }
-
 
 }

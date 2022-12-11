@@ -1,5 +1,7 @@
 package com.example.projetpetitionnaire;
 
+import android.annotation.SuppressLint;
+
 import java.io.Serializable;
 
 public class Membre implements Serializable {
@@ -56,6 +58,7 @@ public class Membre implements Serializable {
             return this;
         }
 
+        @SuppressLint("SuspiciousIndentation")
         public Builder setPrenom(String prenom) {
             if ( !prenom.equals(""))
             this.prenom = prenom;

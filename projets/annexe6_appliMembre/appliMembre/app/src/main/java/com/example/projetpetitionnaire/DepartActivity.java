@@ -38,6 +38,9 @@ public class DepartActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
+//            Bouton Recup -> On recupere le data dans le fichier de serialization, si il y a quelque chose dedans
+//              on cree un objet membre dans lequel on met les informations du fichier, on affiche ensuite ces infos
+//              dans un TOAST
             if ( view == boutonRecup)
             {
                 FileInputStream fis = null;
@@ -52,9 +55,8 @@ public class DepartActivity extends AppCompatActivity {
                     Toast.makeText(DepartActivity.this, "Vous n'êtes pas membre", Toast.LENGTH_SHORT).show();
                 }
 
-
             }
-            else  // boutonStart
+            else  // boutonStart -> On va vers l activity ConteneurFragmentsActivity, qui debutera la suite de fragments
             {
                 Intent i = new Intent(DepartActivity.this, ConteneurFragmentsActivity.class);
                 startActivity(i);
