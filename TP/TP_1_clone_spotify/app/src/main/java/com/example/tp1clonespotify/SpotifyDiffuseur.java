@@ -1,18 +1,14 @@
 package com.example.tp1clonespotify;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.util.Log;
-import android.widget.SeekBar;
+
 
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
-import com.spotify.protocol.client.CallResult;
-import com.spotify.protocol.client.Subscription;
+
 import com.spotify.protocol.types.PlayerState;
 import com.spotify.protocol.types.Track;
-import com.spotify.protocol.types.Uri;
 
 import java.util.Vector;
 
