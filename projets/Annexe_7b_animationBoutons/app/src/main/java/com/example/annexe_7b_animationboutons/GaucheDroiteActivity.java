@@ -51,14 +51,16 @@ public class GaucheDroiteActivity extends AppCompatActivity {
 
         btnDemarrer.setOnClickListener(source ->{
 
+
            if (!oa.isStarted()){
                oa.start();
            }
-           else {
-               oa.cancel();
+           else if (oa.isRunning() && !oa.isPaused()){
+               oa.pause();
            }
-
-
+           else if (oa.isPaused() && oa.isRunning()){
+               oa.resume();
+           }
 
         });
 

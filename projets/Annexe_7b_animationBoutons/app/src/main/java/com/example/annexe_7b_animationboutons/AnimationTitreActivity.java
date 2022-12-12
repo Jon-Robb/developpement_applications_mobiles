@@ -26,6 +26,7 @@ public class AnimationTitreActivity extends AppCompatActivity {
         btnStart = findViewById(R.id.btnStart);
         titre = findViewById(R.id.titre);
 
+//        Un peu comme le gauche droite mais on utilise les scales et le alpha dans un AnimatorSet
         oaScaleY = ObjectAnimator.ofFloat(titre, View.SCALE_Y, 1);
         oaScaleX = ObjectAnimator.ofFloat(titre, View.SCALE_X, 1);
         oaAlpha = ObjectAnimator.ofFloat(titre, View.ALPHA, 1);
