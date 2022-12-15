@@ -42,10 +42,7 @@ public class MainActivity extends AppCompatActivity {
         requeteListener = new RequeteListener(listener);
         requete = new RequeteJSON();
 
-
         requete.faireRequete(MainActivity.this, Request.Method.GET, url, requeteListener);
 
-
     }
-
 }
