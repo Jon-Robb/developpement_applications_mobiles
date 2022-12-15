@@ -2,7 +2,9 @@ package com.example.tpfinalquizvrai;
 
 public class Image {
 
-    int height;
-    String url;
-    int width;
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
 }

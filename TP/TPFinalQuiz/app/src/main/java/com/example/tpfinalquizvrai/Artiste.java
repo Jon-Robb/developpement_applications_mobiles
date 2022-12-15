@@ -1,6 +1,7 @@
 package com.example.tpfinalquizvrai;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class Artiste {
 
@@ -8,5 +9,5 @@ public class Artiste {
     ArrayList<String> genres;
     Followers followers;
     int popularity;
-    Image[] images;
+    Vector<Image> images;
 }
