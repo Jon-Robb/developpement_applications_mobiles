@@ -20,7 +20,6 @@ import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 
-
 public class Question1 extends Fragment {
 
     private TextView score;
@@ -32,7 +31,6 @@ public class Question1 extends Fragment {
     private QuestionHelper questionHelper;
     private boolean peutRepondre = true;
     private Score s;
-    ObjectAnimator oa1, oa2;
 
     public Question1() {
         // Required empty public constructor
@@ -41,7 +39,6 @@ public class Question1 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -57,17 +54,15 @@ public class Question1 extends Fragment {
         score = parent.findViewById(R.id.score);
         NetworkImageView img11 = parent.findViewById(R.id.img11);
         NetworkImageView img12 = parent.findViewById(R.id.img12);
+
         LinearLayout conteneurRep1 = parent.findViewById(R.id.conteneurRep1);
         LinearLayout conteneurRep2 = parent.findViewById(R.id.conteneurRep2);
-
-        oa1 = ObjectAnimator.ofFloat(conteneurRep1, View.TRANSLATION_X, 0);
-        oa2 = ObjectAnimator.ofFloat(conteneurRep2, View.TRANSLATION_X, 0);
+        ObjectAnimator oa1 = ObjectAnimator.ofFloat(conteneurRep1, View.TRANSLATION_X, 0);
+        ObjectAnimator oa2 = ObjectAnimator.ofFloat(conteneurRep2, View.TRANSLATION_X, 0);
         oa1.setDuration(2000);
         oa2.setDuration(2000);
         oa1.start();
         oa2.start();
-
-
 
         Context context = getContext();
         assert context != null;
@@ -122,13 +117,5 @@ public class Question1 extends Fragment {
                 peutRepondre = false;
             }
         }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        // onPause veut dire que le fragment a ete change, donc qu on prend les informations et on les
-//           ajoute dans le builder, qui construit un membre au fil des fragments
-
     }
 }

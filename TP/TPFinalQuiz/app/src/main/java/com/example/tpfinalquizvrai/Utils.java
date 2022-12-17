@@ -7,16 +7,12 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 
-import java.util.Random;
-
 public class Utils {
 
     private RequestsSingleton instance;
-    private Context context;
 
     public Utils(Context context){
 
-        this.context = context;
         instance = RequestsSingleton.getInstance(context);
 
     }
@@ -24,9 +20,13 @@ public class Utils {
     public void viewsFiller(TextView q, String question, NetworkImageView img1, Artiste a1, TextView rep1, NetworkImageView img2, Artiste a2, TextView rep2){
 
         q.setText(question);
-        img1.setImageUrl(a1.images.get(new Random().nextInt(a1.images.size())).getUrl(), instance.getImageLoader());
+        int index1 = a1.randomFromVecImg();
+        int index2 = a2.randomFromVecImg();
+        String image1 = a1.images.get(index1).getUrl();
+        String image2 = a2.images.get(index2).getUrl();
+        img1.setImageUrl(image1, instance.getImageLoader());
         rep1.setText(a1.name);
-        img2.setImageUrl(a2.images.get(new Random().nextInt(a2.images.size())).getUrl(), instance.getImageLoader());
+        img2.setImageUrl(image2, instance.getImageLoader());
         rep2.setText(a2.name);
 
     }
