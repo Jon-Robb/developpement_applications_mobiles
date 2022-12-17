@@ -14,13 +14,8 @@ import com.google.gson.GsonBuilder;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String url = "https://api.spotify.com/v1/artists?ids=4Z8W4fKeB5YxbusRsdQVPb%2C12Chz98pHFMPJEknJQMWvI";
-    private RequeteJSON requete;
-    private RequestsSingleton instance;
     private NetworkImageView imgChanson;
-    private RequeteListener requeteListener;
-    private RequeteTermineeListener requeteTermineeListener;
-    private Button btnStart;
+    private Score.Builder s;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -28,17 +23,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        s = new Score.Builder();
 
 
 
-        btnStart = findViewById(R.id.btnStart);
+        Button btnStart = findViewById(R.id.btnStart);
         btnStart.setOnClickListener(source -> {
             startActivity(new Intent(MainActivity.this, ConteneurFragmentsActivity.class));
         });
 
-        instance = RequestsSingleton.getInstance(MainActivity.this);
+        RequestsSingleton instance = RequestsSingleton.getInstance(MainActivity.this);
 
-        requeteTermineeListener = response -> {
+        //            Artiste artiste = gson.fromJson(String.valueOf(response), Artiste.class);
+        //            System.out.println(artiste.name);
+        //            System.out.println(artiste.genres);
+        //            System.out.println(artiste.followers.total);
+        //            System.out.println(artiste.popularity);
+        //            System.out.println(artiste.randomFromVecGenres());
+        RequeteTermineeListener requeteTermineeListener = response -> {
 
             Gson gson = new GsonBuilder().create();
 //            Artiste artiste = gson.fromJson(String.valueOf(response), Artiste.class);
@@ -47,17 +49,22 @@ public class MainActivity extends AppCompatActivity {
 //            System.out.println(artiste.followers.total);
 //            System.out.println(artiste.popularity);
 //            System.out.println(artiste.randomFromVecGenres());
-            ArtistesVecHelper artistesVecHelper = gson.fromJson(String.valueOf(response), ArtistesVecHelper.class);
-            for (Artiste artiste : artistesVecHelper.artists){
+            Artistes artistesVecHelper = gson.fromJson(String.valueOf(response), Artistes.class);
+            for (Artiste artiste : artistesVecHelper.artists) {
                 System.out.println(artiste.name + " : " + artiste.followers.total);
             }
 
         };
 
-        requeteListener = new RequeteListener(requeteTermineeListener);
-        requete = new RequeteJSON();
+        RequeteListener requeteListener = new RequeteListener(requeteTermineeListener);
+        RequeteJSON requete = new RequeteJSON();
 
+        String url = "https://api.spotify.com/v1/artists?ids=4Z8W4fKeB5YxbusRsdQVPb%2C12Chz98pHFMPJEknJQMWvI";
         requete.faireRequete(MainActivity.this, Request.Method.GET, url, requeteListener);
 
+    }
+
+    public Score.Builder getS() {
+        return s;
     }
 }

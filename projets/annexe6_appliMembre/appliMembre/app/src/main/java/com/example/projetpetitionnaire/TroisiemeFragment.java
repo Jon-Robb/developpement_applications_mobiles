@@ -51,9 +51,9 @@ public class TroisiemeFragment extends Fragment {
 
 //        si la checkbox est activee, l usager veut donner son age, donc on ajoute l information
 //          dans notre membre grace au builder cree dans l activity principale
-        if ( checkBox.isChecked())
+//        if ( checkBox.isChecked())
 
-            activity.m.setAge(Integer.parseInt(texteAge.getText().toString()));
+//            activity.m.setAge(Integer.parseInt(texteAge.getText().toString()));
 
 
     }

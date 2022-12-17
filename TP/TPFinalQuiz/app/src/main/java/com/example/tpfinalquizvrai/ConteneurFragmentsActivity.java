@@ -87,7 +87,7 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
 //            Dependament de la position, on retourne le fragment correspondant
             if ( position == 0 )
             {
-                return new DebutFragment();
+                return new Question1Activity();
             }
             else if (position == 1)// position 1
             {
