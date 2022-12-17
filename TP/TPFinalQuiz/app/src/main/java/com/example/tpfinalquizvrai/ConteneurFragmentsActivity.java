@@ -18,13 +18,15 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
 
     ViewPager2 viewPager;
     ScreenSlidePagerAdapter adapter;
-//    Membre.Builder m;
+    private Score s;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conteneur_fragment);
+        s = new Score();
 
 //        On va chercher le viewpager dans notre xml activity_main, celui ci s occupe de gerer les
 //          fragments et leur position respective
@@ -40,6 +42,10 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
 //        on va chercher notre builder, qui construira un membre au fil des fragments
 //        m = new Membre.Builder();
 
+    }
+
+    public Score getS() {
+        return s;
     }
 
 //

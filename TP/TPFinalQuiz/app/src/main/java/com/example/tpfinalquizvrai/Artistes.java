@@ -16,6 +16,17 @@ public class Artistes {
         return arrArt;
     }
 
+    public Artiste getArtiste(String pArtiste){
+        Artiste art = new Artiste();
+
+        for (Artiste artiste : this.artists){
+            if (artiste.name.equals(pArtiste)){
+                art = artiste;
+            }
+        }
+        return art;
+    }
+
 
     //     public boolean hasMoreFollowers(Artiste pArtiste){
 //

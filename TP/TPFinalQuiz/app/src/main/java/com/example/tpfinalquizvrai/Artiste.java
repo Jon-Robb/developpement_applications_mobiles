@@ -12,6 +12,8 @@ public class Artiste {
     int popularity;
     Vector<Image> images;
 
+
+
     public int randomFromVecImg(){
 
         Random random = new Random();

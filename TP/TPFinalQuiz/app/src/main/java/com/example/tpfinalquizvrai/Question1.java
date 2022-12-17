@@ -1,5 +1,8 @@
 package com.example.tpfinalquizvrai;
 
+import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,14 +23,16 @@ import java.util.ArrayList;
 
 public class Question1 extends Fragment {
 
-    private RequestsSingleton instance;
-    private Artiste a1;
-    private Artiste a2;
     private TextView score;
     private TextView result;
-    private LinearLayout conteneurRep1, conteneurRep2;
-    private Ecouteur ec;
     private ArrayList<Artiste> a;
+    private Artistes artistes;
+    private Artiste bonArtiste;
+    private Utils utils;
+    private QuestionHelper questionHelper;
+    private boolean peutRepondre = true;
+    private Score s;
+    ObjectAnimator oa1, oa2;
 
     public Question1() {
         // Required empty public constructor
@@ -52,20 +57,35 @@ public class Question1 extends Fragment {
         score = parent.findViewById(R.id.score);
         NetworkImageView img11 = parent.findViewById(R.id.img11);
         NetworkImageView img12 = parent.findViewById(R.id.img12);
-        conteneurRep1 = parent.findViewById(R.id.conteneurRep1);
-        conteneurRep2 = parent.findViewById(R.id.conteneurRep2);
+        LinearLayout conteneurRep1 = parent.findViewById(R.id.conteneurRep1);
+        LinearLayout conteneurRep2 = parent.findViewById(R.id.conteneurRep2);
 
-        instance = RequestsSingleton.getInstance(getContext());
+        oa1 = ObjectAnimator.ofFloat(conteneurRep1, View.TRANSLATION_X, 0);
+        oa2 = ObjectAnimator.ofFloat(conteneurRep2, View.TRANSLATION_X, 0);
+        oa1.setDuration(2000);
+        oa2.setDuration(2000);
+        oa1.start();
+        oa2.start();
 
+
+
+        Context context = getContext();
+        assert context != null;
+        s = ((ConteneurFragmentsActivity) context).getS();
+        score.setText(String.valueOf(s.getScore()));
+
+        utils = new Utils(getContext());
+        questionHelper = new QuestionHelper();
 
         RequeteTermineeListener requeteTermineeListener = response -> {
             Gson gson = new GsonBuilder().create();
-            Artistes artistes = gson.fromJson(String.valueOf(response), Artistes.class);
+            artistes = gson.fromJson(String.valueOf(response), Artistes.class);
             a = artistes.getTopArtists(2);
-            new ViewsFiller(getContext()).fillViews(q1, "Quel artiste a le plus de followers ?", img11, a.get(0), rep11, img12, a.get(1), rep12);
+            bonArtiste = questionHelper.generateFollowersAnswer(a);
+            utils.viewsFiller(q1, "Quel artiste a le plus de followers ?", img11, a.get(0), rep11, img12, a.get(1), rep12);
         };
 
-        ec = new Ecouteur();
+        Ecouteur ec = new Ecouteur();
         conteneurRep1.setOnClickListener(ec);
         conteneurRep2.setOnClickListener(ec);
 
@@ -80,18 +100,26 @@ public class Question1 extends Fragment {
         return parent;
     }
 
-
     public class Ecouteur implements View.OnClickListener{
 
+        @SuppressLint("SetTextI18n")
         @Override
         public void onClick(View view) {
-            LinearLayout parent = (LinearLayout) view;
-            TextView enfant = (TextView) parent.getChildAt(1);
-            String nom = enfant.getText().toString();
-            if (nom.equals(a.get(0).name)){
-                parent.setBackgroundColor(Color.GREEN);
-                score.setText(String.valueOf(10));
-                result.setText("Bonne reponse!");
+            if (peutRepondre){
+                String nom = utils.returnSecondChildString(view);
+                Artiste artRep = artistes.getArtiste(nom);
+                if (artRep == bonArtiste){
+                    view.setBackgroundColor(Color.GREEN);
+                    s.setScore(10);
+                    score.setText(String.valueOf(s.getScore()));
+                    result.setText("Bonne reponse!!!\n" + artRep.followers.total + " followers");
+
+                }
+                else{
+                    view.setBackgroundColor(Color.RED);
+                    result.setText("Mauvaises reponse\nBonne reponse : " + bonArtiste.name + ", " + bonArtiste.followers.total + " followers");
+                }
+                peutRepondre = false;
             }
         }
     }
@@ -101,7 +129,6 @@ public class Question1 extends Fragment {
         super.onPause();
         // onPause veut dire que le fragment a ete change, donc qu on prend les informations et on les
 //           ajoute dans le builder, qui construit un membre au fil des fragments
-
 
     }
 }
