@@ -100,7 +100,7 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
                 return new Question2();
             }
             else if (position == 2){
-                return new TroisiemeFragment();
+                return new Question3();
             }
             else{
                 return new FinFragment();
