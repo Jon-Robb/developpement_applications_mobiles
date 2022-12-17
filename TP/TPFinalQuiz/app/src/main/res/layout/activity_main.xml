@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.15"
-        android:text="Bienvenue au Quiz de l'honorable"
+        android:text="Bienvenue au Quiz en l'honneur de "
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -41,7 +41,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:rotation="360"
+        android:alpha="0"
+        android:scaleX="0"
+        android:scaleY="0"
         app:srcCompat="@drawable/photo_eric" />
 
     <Space

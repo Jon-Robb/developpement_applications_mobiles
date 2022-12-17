@@ -19,8 +19,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-public class Question1 extends Fragment {
+
+public class Question2 extends Fragment {
 
     private TextView score;
     private TextView result;
@@ -31,8 +33,10 @@ public class Question1 extends Fragment {
     private QuestionHelper questionHelper;
     private boolean peutRepondre = true;
     private Score s;
+    StringBuilder genres;
 
-    public Question1() {
+
+    public Question2() {
         // Required empty public constructor
     }
 
@@ -45,8 +49,8 @@ public class Question1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-//        On transtype le inflater en ViewGroup, pour avoir acces aux views de ce fragment particulier
-        ViewGroup parent = (ViewGroup )inflater.inflate(R.layout.fragment_question1, container, false);
+        ViewGroup parent = (ViewGroup )inflater.inflate(R.layout.fragment_question2, container, false);
+
         TextView q1 = parent.findViewById(R.id.q2);
         result = parent.findViewById(R.id.result2);
         TextView rep11 = parent.findViewById(R.id.reponse21);
@@ -76,11 +80,16 @@ public class Question1 extends Fragment {
             Gson gson = new GsonBuilder().create();
             artistes = gson.fromJson(String.valueOf(response), Artistes.class);
             a = artistes.getTopArtists(2);
-            bonArtiste = questionHelper.generateFollowersAnswer(a);
-            utils.viewsFiller(q1, "Quel artiste a le plus de followers ?", img11, a.get(0), rep11, img12, a.get(1), rep12);
+            bonArtiste = new Artiste();
+            bonArtiste = a.get(new Random().nextInt(a.size()));
+            genres = new StringBuilder();
+            for (int i = 0; i < 3; i++){
+                genres.append(bonArtiste.genres.get(i)).append(", ");
+            }
+            utils.viewsFiller(q1, "À quel artiste correspond ces genres musicaux : \n" + genres, img11, a.get(0), rep11, img12, a.get(1), rep12);
         };
 
-        EcouteurQ1 ec = new EcouteurQ1();
+        EcouteurQ2 ec = new EcouteurQ2();
         conteneurRep1.setOnClickListener(ec);
         conteneurRep2.setOnClickListener(ec);
 
@@ -95,7 +104,7 @@ public class Question1 extends Fragment {
         return parent;
     }
 
-    public class EcouteurQ1 implements View.OnClickListener{
+    public class EcouteurQ2 implements View.OnClickListener{
 
         @SuppressLint("SetTextI18n")
         @Override
@@ -107,12 +116,11 @@ public class Question1 extends Fragment {
                     view.setBackgroundColor(Color.GREEN);
                     s.setScore(10);
                     score.setText(String.valueOf(s.getScore()));
-                    result.setText("Bonne reponse!!!\n" + artRep.followers.total + " followers");
-
+                    result.setText("Bonne reponse!!!\n" + artRep.name);
                 }
                 else{
                     view.setBackgroundColor(Color.RED);
-                    result.setText("Mauvaises reponse\nBonne reponse : " + bonArtiste.name + ", " + bonArtiste.followers.total + " followers");
+                    result.setText("Mauvaises reponse\nBonne reponse : " + bonArtiste.name);
                 }
                 peutRepondre = false;
             }

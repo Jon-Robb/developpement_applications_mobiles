@@ -2,6 +2,7 @@ package com.example.tpfinalquizvrai;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class Artistes {
 
@@ -14,6 +15,11 @@ public class Artistes {
             arrArt.add(this.artists.get(i));
         }
         return arrArt;
+    }
+
+    public Artiste getRandomArtist(){
+        Collections.shuffle(this.artists);
+        return this.artists.get(new Random().nextInt(this.artists.size()));
     }
 
     public Artiste getArtiste(String pArtiste){
