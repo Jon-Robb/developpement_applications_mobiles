@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,24 +15,21 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.w3c.dom.Text;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Random;
+import java.util.ArrayList;
 
 
-public class Question1Activity extends Fragment {
+public class Question1 extends Fragment {
 
     private RequestsSingleton instance;
     private Artiste a1;
     private Artiste a2;
     private TextView score;
     private TextView result;
-    LinearLayout conteneurRep1, conteneurRep2;
-    Ecouteur ec;
+    private LinearLayout conteneurRep1, conteneurRep2;
+    private Ecouteur ec;
+    private ArrayList<Artiste> a;
 
-    public Question1Activity() {
+    public Question1() {
         // Required empty public constructor
     }
 
@@ -62,20 +58,11 @@ public class Question1Activity extends Fragment {
         instance = RequestsSingleton.getInstance(getContext());
 
 
-        Random random = new Random();
-
         RequeteTermineeListener requeteTermineeListener = response -> {
             Gson gson = new GsonBuilder().create();
             Artistes artistes = gson.fromJson(String.valueOf(response), Artistes.class);
-            Collections.shuffle(artistes.artists);
-            q1.setText("Quel artise a le plus de followers ?");
-            a1 = artistes.artists.get(0);
-            img11.setImageUrl(a1.images.get(random.nextInt(a1.images.size())).getUrl(), instance.getImageLoader());
-            rep11.setText(a1.name);
-            a2 = artistes.artists.get(1);
-            img12.setImageUrl(a2.images.get(random.nextInt(a2.images.size())).getUrl(), instance.getImageLoader());
-            rep12.setText(a2.name);
-
+            a = artistes.getTopArtists(2);
+            new ViewsFiller(getContext()).fillViews(q1, "Quel artiste a le plus de followers ?", img11, a.get(0), rep11, img12, a.get(1), rep12);
         };
 
         ec = new Ecouteur();
@@ -85,11 +72,14 @@ public class Question1Activity extends Fragment {
         RequeteListener requeteListener = new RequeteListener(requeteTermineeListener);
         RequeteJSON requete = new RequeteJSON();
 
-        String url = "https://api.spotify.com/v1/artists?ids=4Z8W4fKeB5YxbusRsdQVPb%2C12Chz98pHFMPJEknJQMWvI";
+        UrlGenerator urlGenerator = new UrlGenerator();
+
+        String url = urlGenerator.generateTwoArtistsUrl();
         requete.faireRequete(getContext(), Request.Method.GET, url, requeteListener);
 
         return parent;
     }
+
 
     public class Ecouteur implements View.OnClickListener{
 
@@ -98,7 +88,7 @@ public class Question1Activity extends Fragment {
             LinearLayout parent = (LinearLayout) view;
             TextView enfant = (TextView) parent.getChildAt(1);
             String nom = enfant.getText().toString();
-            if (nom.equals(a1.name)){
+            if (nom.equals(a.get(0).name)){
                 parent.setBackgroundColor(Color.GREEN);
                 score.setText(String.valueOf(10));
                 result.setText("Bonne reponse!");

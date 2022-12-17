@@ -6,16 +6,20 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.NetworkImageView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     private NetworkImageView imgChanson;
     private Score.Builder s;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -25,14 +29,11 @@ public class MainActivity extends AppCompatActivity {
 
         s = new Score.Builder();
 
-
-
         Button btnStart = findViewById(R.id.btnStart);
         btnStart.setOnClickListener(source -> {
             startActivity(new Intent(MainActivity.this, ConteneurFragmentsActivity.class));
         });
 
-        RequestsSingleton instance = RequestsSingleton.getInstance(MainActivity.this);
 
         //            Artiste artiste = gson.fromJson(String.valueOf(response), Artiste.class);
         //            System.out.println(artiste.name);
@@ -67,4 +68,6 @@ public class MainActivity extends AppCompatActivity {
     public Score.Builder getS() {
         return s;
     }
+
+
 }
