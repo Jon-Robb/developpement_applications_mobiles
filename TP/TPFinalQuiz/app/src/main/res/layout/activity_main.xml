@@ -17,28 +17,32 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.15"
-        android:text="Bienvenue au Quiz de l'honotable"
+        android:text="Bienvenue au Quiz de l'honorable"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/nomEric"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.10"
+        android:alpha="0"
         android:autoText="false"
+        android:scaleX="10"
+        android:scaleY="10"
         android:text="ÉRIC LABONTÉ"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imgEric"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        app:srcCompat="@drawable/photoEric" />
+        android:rotation="360"
+        app:srcCompat="@drawable/photo_eric" />
 
     <Space
         android:layout_width="match_parent"
@@ -46,7 +50,7 @@
         android:layout_weight="0.1" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/bestScore"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.25"
@@ -57,10 +61,12 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnStart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.25"
-        android:text="Commencez le Quiz" />
+        android:scaleX="0.75"
+        android:scaleY="0.75"
+        android:text="Commencer le Quiz" />
 
 </LinearLayout>
