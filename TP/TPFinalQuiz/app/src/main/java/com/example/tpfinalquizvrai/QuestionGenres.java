@@ -19,9 +19,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
-public class Question3 extends Fragment {
+public class QuestionGenres extends Fragment {
 
     private TextView score;
     private TextView result;
@@ -32,8 +33,11 @@ public class Question3 extends Fragment {
     private QuestionHelper questionHelper;
     private boolean peutRepondre = true;
     private Score s;
+    private StringBuilder genres;
+    private int maxGenres = 3;
 
-    public Question3() {
+
+    public QuestionGenres() {
         // Required empty public constructor
     }
 
@@ -46,8 +50,8 @@ public class Question3 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-//        On transtype le inflater en ViewGroup, pour avoir acces aux views de ce fragment particulier
-        ViewGroup parent = (ViewGroup )inflater.inflate(R.layout.fragment_question1, container, false);
+        ViewGroup parent = (ViewGroup )inflater.inflate(R.layout.fragment_question2, container, false);
+
         TextView q1 = parent.findViewById(R.id.q1);
         result = parent.findViewById(R.id.result3);
         TextView rep11 = parent.findViewById(R.id.reponse31);
@@ -77,11 +81,25 @@ public class Question3 extends Fragment {
             Gson gson = new GsonBuilder().create();
             artistes = gson.fromJson(String.valueOf(response), Artistes.class);
             a = artistes.getTopArtists(2);
-            bonArtiste = questionHelper.generatePopularityAnswer(a);
-            utils.viewsFiller(q1, "Quel artiste a la plus haute cote de popularité selon Spotify ?", img11, a.get(0), rep11, img12, a.get(1), rep12);
+            bonArtiste = new Artiste();
+            bonArtiste = a.get(new Random().nextInt(a.size()));
+            genres = new StringBuilder();
+
+            if (bonArtiste.genres.size() < 3){
+                maxGenres = bonArtiste.genres.size();
+            }
+            for (int i = 0; i < maxGenres; i++){
+                if (!bonArtiste.genres.get(i).equals(bonArtiste.genres.get(maxGenres - 1))){
+                    genres.append(bonArtiste.genres.get(i)).append(", ");
+                }
+                else {
+                    genres.append(bonArtiste.genres.get(i));
+                }
+            }
+            utils.viewsFiller(q1, "À quel artiste correspond ces genres musicaux : \n" + genres, img11, a.get(0), rep11, img12, a.get(1), rep12);
         };
 
-        EcouteurQ3 ec = new EcouteurQ3();
+        EcouteurQ2 ec = new EcouteurQ2();
         conteneurRep1.setOnClickListener(ec);
         conteneurRep2.setOnClickListener(ec);
 
@@ -96,7 +114,7 @@ public class Question3 extends Fragment {
         return parent;
     }
 
-    public class EcouteurQ3 implements View.OnClickListener{
+    public class EcouteurQ2 implements View.OnClickListener{
 
         @SuppressLint("SetTextI18n")
         @Override
@@ -105,15 +123,16 @@ public class Question3 extends Fragment {
                 String nom = utils.returnSecondChildString(view);
                 Artiste artRep = artistes.getArtiste(nom);
                 if (artRep == bonArtiste){
-                    view.setBackgroundColor(Color.GREEN);
+                    view.setBackgroundColor(getResources().getColor(R.color.green));
                     s.setScore(10);
                     score.setText(String.valueOf(s.getScore()));
-                    result.setText("Bonne reponse!!!\nCote de popularité de " + artRep.popularity);
-
+                    result.setTextColor(getResources().getColor(R.color.green));
+                    result.setText("Bonne reponse!!!\n" + artRep.name);
                 }
                 else{
-                    view.setBackgroundColor(Color.RED);
-                    result.setText("Mauvaises reponse\nBonne reponse : " + bonArtiste.name + ", Popularité : " + bonArtiste.followers.total);
+                    view.setBackgroundColor(getResources().getColor(R.color.orange));
+                    result.setTextColor(getResources().getColor(R.color.orange));
+                    result.setText("Mauvaises reponse\nBonne reponse : " + bonArtiste.name);
                 }
                 peutRepondre = false;
             }

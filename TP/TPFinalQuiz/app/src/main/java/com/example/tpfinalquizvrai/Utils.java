@@ -5,7 +5,6 @@ import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.toolbox.NetworkImageView;
 
@@ -14,7 +13,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 
 public class Utils {
 
@@ -51,7 +49,7 @@ public class Utils {
 
     public void serialiser(Activity activity, Object s){
         try {
-            FileOutputStream fos = activity.openFileOutput("fichier.ser", Context.MODE_APPEND);
+            FileOutputStream fos = activity.openFileOutput("fichier.ser", Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(s);
             oos.close();
@@ -77,7 +75,7 @@ public class Utils {
 //        return arrScore;
 //    }
 
-    public void getSerializedScore(Activity activity, TextView bestScore){
+    public void getSerializedScores(Activity activity, TextView bestScore){
         FileInputStream fis = null;
         try {
             fis = activity.openFileInput("fichier.ser");

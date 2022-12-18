@@ -20,7 +20,8 @@ import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 
-public class Question1 extends Fragment {
+
+public class QuestionPopularity extends Fragment {
 
     private TextView score;
     private TextView result;
@@ -32,7 +33,7 @@ public class Question1 extends Fragment {
     private boolean peutRepondre = true;
     private Score s;
 
-    public Question1() {
+    public QuestionPopularity() {
         // Required empty public constructor
     }
 
@@ -76,11 +77,11 @@ public class Question1 extends Fragment {
             Gson gson = new GsonBuilder().create();
             artistes = gson.fromJson(String.valueOf(response), Artistes.class);
             a = artistes.getTopArtists(2);
-            bonArtiste = questionHelper.generateFollowersAnswer(a);
-            utils.viewsFiller(q1, "Quel artiste a le plus de followers ?", img11, a.get(0), rep11, img12, a.get(1), rep12);
+            bonArtiste = questionHelper.generatePopularityAnswer(a);
+            utils.viewsFiller(q1, "Quel artiste a la plus haute cote de popularité selon Spotify ?", img11, a.get(0), rep11, img12, a.get(1), rep12);
         };
 
-        EcouteurQ1 ec = new EcouteurQ1();
+        EcouteurQ3 ec = new EcouteurQ3();
         conteneurRep1.setOnClickListener(ec);
         conteneurRep2.setOnClickListener(ec);
 
@@ -95,7 +96,7 @@ public class Question1 extends Fragment {
         return parent;
     }
 
-    public class EcouteurQ1 implements View.OnClickListener{
+    public class EcouteurQ3 implements View.OnClickListener{
 
         @SuppressLint("SetTextI18n")
         @Override
@@ -104,15 +105,17 @@ public class Question1 extends Fragment {
                 String nom = utils.returnSecondChildString(view);
                 Artiste artRep = artistes.getArtiste(nom);
                 if (artRep == bonArtiste){
-                    view.setBackgroundColor(Color.GREEN);
+                    view.setBackgroundColor(getResources().getColor(R.color.green));
                     s.setScore(10);
                     score.setText(String.valueOf(s.getScore()));
-                    result.setText("Bonne reponse!!!\n" + artRep.followers.total + " followers");
+                    result.setTextColor(getResources().getColor(R.color.green));
+                    result.setText("Bonne reponse!!!\nCote de popularité de " + artRep.popularity);
 
                 }
                 else{
-                    view.setBackgroundColor(Color.RED);
-                    result.setText("Mauvaises reponse\nBonne reponse : " + bonArtiste.name + ", " + bonArtiste.followers.total + " followers");
+                    view.setBackgroundColor(getResources().getColor(R.color.orange));
+                    result.setTextColor(getResources().getColor(R.color.orange));
+                    result.setText("Mauvaises reponse\nBonne reponse : " + bonArtiste.name + ", Popularité : " + bonArtiste.followers.total);
                 }
                 peutRepondre = false;
             }

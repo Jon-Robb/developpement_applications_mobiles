@@ -15,8 +15,11 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Objects;
 
@@ -98,7 +101,30 @@ public class FinFragment extends Fragment {
         public void onClick(View source) {
             if (source == btnSave){
                 if (s.getScore() > 0){
-                    new Utils(getContext()).serialiser(getActivity(), s);
+
+                    try{
+                        FileInputStream fis = getActivity().openFileInput("scores.ser");
+                        ObjectInputStream ois = new ObjectInputStream(fis);
+                        Scores scores = (Scores) ois.readObject();
+                        scores.updateArrayScore(s);
+                        ois.close();
+                        FileOutputStream fos = getActivity().openFileOutput("scores.ser", Context.MODE_PRIVATE);
+                        ObjectOutputStream oos = new ObjectOutputStream(fos);
+                        oos.writeObject(scores);
+                    }
+                    catch(IOException | ClassNotFoundException exception){
+                        try {
+                            FileOutputStream fos = getActivity().openFileOutput("scores.ser", Context.MODE_PRIVATE);
+                            ObjectOutputStream oos = new ObjectOutputStream(fos);
+                            Scores scores = new Scores();
+                            scores.updateArrayScore(s);
+                            oos.writeObject(scores);
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
                 }
 //                    try {
 //                        FileOutputStream fos = getActivity().openFileOutput("fichier.ser", Context.MODE_PRIVATE);
@@ -115,6 +141,7 @@ public class FinFragment extends Fragment {
                 }
             }
             requireActivity().finish();
+
         }
     }
 

@@ -19,6 +19,7 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
     ViewPager2 viewPager;
     ScreenSlidePagerAdapter adapter;
     private Score s;
+    private int nbQuestions = 3;
 
 
     @SuppressLint("MissingInflatedId")
@@ -39,19 +40,12 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
 //        On doit register pour un call back, losrque les pages sont swiped
         viewPager.registerOnPageChangeCallback(new CallBackPage());
 
-//        on va chercher notre builder, qui construira un membre au fil des fragments
-//        m = new Membre.Builder();
-
     }
 
     public Score getS() {
         return s;
     }
 
-//
-//    public Membre.Builder getM() {
-//        return m;
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,16 +85,17 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
         public Fragment createFragment(int position) {
 
 //            Dependament de la position, on retourne le fragment correspondant
-            if ( position == 0 )
+
+            if ( position < nbQuestions / 3 )
             {
-                return new Question1();
+                return new QuestionFollowers();
             }
-            else if (position == 1)// position 1
+            else if (position < nbQuestions / 1.5)
             {
-                return new Question2();
+                return new QuestionGenres();
             }
-            else if (position == 2){
-                return new Question3();
+            else if (position < nbQuestions){
+                return new QuestionPopularity();
             }
             else{
                 return new FinFragment();
@@ -112,7 +107,7 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
 //        Cette fonction doit retourner un int correspondant au nombre de fragments
         public int getItemCount() {
 
-            return 4;
+            return nbQuestions + 1;
 
         }
     }

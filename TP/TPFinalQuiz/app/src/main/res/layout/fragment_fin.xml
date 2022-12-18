@@ -5,6 +5,7 @@
     android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:gravity="bottom"
     android:orientation="vertical"
     tools:context=".FinFragment">
@@ -22,6 +23,7 @@
         android:paddingTop="10dp"
         android:text="Partie terminée !"
         android:textAlignment="center"
+        android:textColor="@color/yellow"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -64,6 +66,7 @@
                     android:layout_weight="0.5"
                     android:text="Score : "
                     android:textAlignment="center"
+                    android:textColor="@color/green"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -75,6 +78,7 @@
                     android:paddingTop="25dp"
                     android:text="0"
                     android:textAlignment="center"
+                    android:textColor="@color/green"
                     android:textSize="24sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -115,6 +119,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
+            android:background="@color/orange"
             android:text="Sauvegarder et quitter" />
 
         <Button
@@ -124,6 +129,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
+            android:background="@color/orange"
             android:text="Quitter" />
     </LinearLayout>
 

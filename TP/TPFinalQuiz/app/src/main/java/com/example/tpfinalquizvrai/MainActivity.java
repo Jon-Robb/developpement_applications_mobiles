@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Path;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
@@ -14,18 +14,10 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.toolbox.NetworkImageView;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,7 +55,51 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, ConteneurFragmentsActivity.class));
         });
 
-        new Utils(this).getSerializedScore(MainActivity.this, bestScore);
+//        public void getSerializedScores(Activity activity, TextView bestScore){
+//            FileInputStream fis = null;
+//            try {
+//                fis = activity.openFileInput("fichier.ser");
+//                ObjectInputStream ois = new ObjectInputStream(fis);
+//                Score s = (Score) ois.readObject();
+//                ois.close();
+//                bestScore.setText(String.valueOf(s.getScore()));
+//
+//            } catch (IOException | ClassNotFoundException e) {
+//                e.printStackTrace();
+//                System.out.println(e.getMessage());
+//            }
+//        }
 
+//        new Utils(this).getSerializedScores(MainActivity.this, bestScore);
+
+        FileInputStream fis = null;
+        try{
+            fis = openFileInput("scores.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Scores s = (Scores) ois.readObject();
+            ois.close();
+            Score best = new Score();
+
+            if (s.getArrayScores() != null){
+                for(Score score : s.getArrayScores()){
+                    if (score.getScore() > best.getScore()){
+                        best = score;
+                    }
+                }
+            }
+            else{
+                bestScore.setText(String.valueOf(0));
+            }
+            bestScore.setText(String.valueOf(best.getScore()));
+        } catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }
