@@ -14,12 +14,17 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.NetworkImageView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         TextView nomEric = findViewById(R.id.nomEric);
         ImageView imgEric = findViewById(R.id.imgEric);
-
+        TextView bestScore = findViewById(R.id.bestScore);
 
         ObjectAnimator oaScaleY = ObjectAnimator.ofFloat(nomEric, View.SCALE_Y, 1);
         ObjectAnimator oaScaleX = ObjectAnimator.ofFloat(nomEric, View.SCALE_X, 1);
@@ -57,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
         btnStart.setOnClickListener(source -> {
             startActivity(new Intent(MainActivity.this, ConteneurFragmentsActivity.class));
         });
+
+        new Utils(this).getSerializedScore(MainActivity.this, bestScore);
+
     }
-
-
 }

@@ -1,11 +1,20 @@
 package com.example.tpfinalquizvrai;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.NetworkImageView;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 public class Utils {
 
@@ -40,5 +49,48 @@ public class Utils {
 
     }
 
+    public void serialiser(Activity activity, Object s){
+        try {
+            FileOutputStream fos = activity.openFileOutput("fichier.ser", Context.MODE_APPEND);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(s);
+            oos.close();
+            activity.finish();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+//    public ArrayList<Score> getSerializedScores(Activity activity){
+//        FileInputStream fis;
+//        ArrayList<Score> arrScore = new ArrayList<>();
+//        try {
+//            fis = activity.openFileInput("fichier.ser");
+//            ObjectInputStream ois = new ObjectInputStream(fis);
+//            while(ois.readObject() != null){
+//                arrScore.add((Score) ois.readObject());
+//            }
+//            ois.close();
+//        } catch (IOException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        return arrScore;
+//    }
+
+    public void getSerializedScore(Activity activity, TextView bestScore){
+        FileInputStream fis = null;
+        try {
+            fis = activity.openFileInput("fichier.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Score s = (Score) ois.readObject();
+            ois.close();
+            bestScore.setText(String.valueOf(s.getScore()));
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+    }
 
 }
+

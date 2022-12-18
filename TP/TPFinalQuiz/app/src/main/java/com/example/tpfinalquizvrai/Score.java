@@ -11,6 +11,7 @@ public class Score implements Serializable {
         this.score = 0;
     }
 
+
     public int getScore() {
         return score;
     }
