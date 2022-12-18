@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="40dp"
-    tools:context=".Question1">
+    tools:context=".Question3">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/score"
+                android:id="@+id/scoreQ1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.75"
@@ -48,7 +48,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/q2"
+        android:id="@+id/q1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.35"
@@ -57,7 +57,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/result2"
+        android:id="@+id/result3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.15"
@@ -72,7 +72,7 @@
         android:layout_weight="1">
 
         <LinearLayout
-            android:id="@+id/conteneurRep21"
+            android:id="@+id/conteneurRep31"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -80,7 +80,7 @@
             android:translationX="-250dp">
 
             <com.android.volley.toolbox.NetworkImageView
-                android:id="@+id/img21"
+                android:id="@+id/img31"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginLeft="10dp"
@@ -92,7 +92,7 @@
                 tools:src="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/reponse21"
+                android:id="@+id/reponse31"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.35"
@@ -102,7 +102,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/conteneurRep22"
+            android:id="@+id/conteneurRep32"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -110,7 +110,7 @@
             android:translationX="250dp">
 
             <com.android.volley.toolbox.NetworkImageView
-                android:id="@+id/img22"
+                android:id="@+id/img32"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginLeft="10dp"
@@ -122,7 +122,7 @@
                 tools:src="@tools:sample/backgrounds/scenic" />
 
             <TextView
-                android:id="@+id/reponse22"
+                android:id="@+id/reponse32"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.35"

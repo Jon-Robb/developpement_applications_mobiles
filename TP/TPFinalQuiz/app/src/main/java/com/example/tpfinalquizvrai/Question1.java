@@ -47,16 +47,16 @@ public class Question1 extends Fragment {
         // Inflate the layout for this fragment
 //        On transtype le inflater en ViewGroup, pour avoir acces aux views de ce fragment particulier
         ViewGroup parent = (ViewGroup )inflater.inflate(R.layout.fragment_question1, container, false);
-        TextView q1 = parent.findViewById(R.id.q2);
-        result = parent.findViewById(R.id.result2);
-        TextView rep11 = parent.findViewById(R.id.reponse21);
-        TextView rep12 = parent.findViewById(R.id.reponse22);
-        score = parent.findViewById(R.id.score);
-        NetworkImageView img11 = parent.findViewById(R.id.img21);
-        NetworkImageView img12 = parent.findViewById(R.id.img22);
+        TextView q1 = parent.findViewById(R.id.q1);
+        result = parent.findViewById(R.id.result3);
+        TextView rep11 = parent.findViewById(R.id.reponse31);
+        TextView rep12 = parent.findViewById(R.id.reponse32);
+        score = parent.findViewById(R.id.scoreQ1);
+        NetworkImageView img11 = parent.findViewById(R.id.img31);
+        NetworkImageView img12 = parent.findViewById(R.id.img32);
 
-        LinearLayout conteneurRep1 = parent.findViewById(R.id.conteneurRep21);
-        LinearLayout conteneurRep2 = parent.findViewById(R.id.conteneurRep22);
+        LinearLayout conteneurRep1 = parent.findViewById(R.id.conteneurRep31);
+        LinearLayout conteneurRep2 = parent.findViewById(R.id.conteneurRep32);
         ObjectAnimator oa1 = ObjectAnimator.ofFloat(conteneurRep1, View.TRANSLATION_X, 0);
         ObjectAnimator oa2 = ObjectAnimator.ofFloat(conteneurRep2, View.TRANSLATION_X, 0);
         oa1.setDuration(2000);

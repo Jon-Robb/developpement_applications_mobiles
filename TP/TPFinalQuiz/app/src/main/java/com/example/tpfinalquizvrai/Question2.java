@@ -33,7 +33,8 @@ public class Question2 extends Fragment {
     private QuestionHelper questionHelper;
     private boolean peutRepondre = true;
     private Score s;
-    StringBuilder genres;
+    private StringBuilder genres;
+    private int maxGenres = 3;
 
 
     public Question2() {
@@ -51,16 +52,16 @@ public class Question2 extends Fragment {
         // Inflate the layout for this fragment
         ViewGroup parent = (ViewGroup )inflater.inflate(R.layout.fragment_question2, container, false);
 
-        TextView q1 = parent.findViewById(R.id.q2);
-        result = parent.findViewById(R.id.result2);
-        TextView rep11 = parent.findViewById(R.id.reponse21);
-        TextView rep12 = parent.findViewById(R.id.reponse22);
-        score = parent.findViewById(R.id.score);
-        NetworkImageView img11 = parent.findViewById(R.id.img21);
-        NetworkImageView img12 = parent.findViewById(R.id.img22);
+        TextView q1 = parent.findViewById(R.id.q1);
+        result = parent.findViewById(R.id.result3);
+        TextView rep11 = parent.findViewById(R.id.reponse31);
+        TextView rep12 = parent.findViewById(R.id.reponse32);
+        score = parent.findViewById(R.id.scoreQ1);
+        NetworkImageView img11 = parent.findViewById(R.id.img31);
+        NetworkImageView img12 = parent.findViewById(R.id.img32);
 
-        LinearLayout conteneurRep1 = parent.findViewById(R.id.conteneurRep21);
-        LinearLayout conteneurRep2 = parent.findViewById(R.id.conteneurRep22);
+        LinearLayout conteneurRep1 = parent.findViewById(R.id.conteneurRep31);
+        LinearLayout conteneurRep2 = parent.findViewById(R.id.conteneurRep32);
         ObjectAnimator oa1 = ObjectAnimator.ofFloat(conteneurRep1, View.TRANSLATION_X, 0);
         ObjectAnimator oa2 = ObjectAnimator.ofFloat(conteneurRep2, View.TRANSLATION_X, 0);
         oa1.setDuration(2000);
@@ -83,8 +84,17 @@ public class Question2 extends Fragment {
             bonArtiste = new Artiste();
             bonArtiste = a.get(new Random().nextInt(a.size()));
             genres = new StringBuilder();
-            for (int i = 0; i < 3; i++){
-                genres.append(bonArtiste.genres.get(i)).append(", ");
+
+            if (bonArtiste.genres.size() < 3){
+                maxGenres = bonArtiste.genres.size();
+            }
+            for (int i = 0; i < maxGenres; i++){
+                if (!bonArtiste.genres.get(i).equals(bonArtiste.genres.get(maxGenres - 1))){
+                    genres.append(bonArtiste.genres.get(i)).append(", ");
+                }
+                else {
+                    genres.append(bonArtiste.genres.get(i));
+                }
             }
             utils.viewsFiller(q1, "À quel artiste correspond ces genres musicaux : \n" + genres, img11, a.get(0), rep11, img12, a.get(1), rep12);
         };

@@ -17,6 +17,17 @@ public class QuestionHelper {
         return bestArt;
     }
 
+    public Artiste generatePopularityAnswer(ArrayList<Artiste> artisteArrayList){
+        Artiste bestArt;
+        bestArt = artisteArrayList.get(0);
+        for (Artiste artiste : artisteArrayList){
+            if (artiste.popularity > bestArt.popularity){
+                bestArt = artiste;
+            }
+        }
+        return bestArt;
+    }
+
 
 
 }
