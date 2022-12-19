@@ -19,7 +19,7 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
     private ViewPager2 viewPager;
     private ScreenSlidePagerAdapter adapter;
     private Score s;
-    private int nbQuestions = 30;
+    private int nbQuestions = 10;
 
 
     @SuppressLint("MissingInflatedId")
