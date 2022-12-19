@@ -98,7 +98,6 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
             else{
                 return new FinFragment();
             }
-
         }
 
         @Override
@@ -116,5 +115,4 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
             super.onPageSelected(position);
         }
     }
-
 }
