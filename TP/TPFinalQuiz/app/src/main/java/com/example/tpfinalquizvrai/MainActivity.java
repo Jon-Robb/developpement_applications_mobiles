@@ -19,7 +19,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+
 public class MainActivity extends AppCompatActivity {
+
+    TextView bestScore;
+    Utils utils;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -28,8 +32,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         TextView nomEric = findViewById(R.id.nomEric);
         ImageView imgEric = findViewById(R.id.imgEric);
-        TextView bestScore = findViewById(R.id.bestScore);
+        bestScore = findViewById(R.id.bestScore);
+        utils = new Utils(MainActivity.this);
 
+//        Animator set pour ton nom
         ObjectAnimator oaScaleY = ObjectAnimator.ofFloat(nomEric, View.SCALE_Y, 1);
         ObjectAnimator oaScaleX = ObjectAnimator.ofFloat(nomEric, View.SCALE_X, 1);
         ObjectAnimator oaAlpha = ObjectAnimator.ofFloat(nomEric, View.ALPHA, 1);
@@ -39,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         as.setDuration(3000);
         as.start();
 
-
+//          Animator set pour ta photo
         ObjectAnimator oRotate = ObjectAnimator.ofFloat(imgEric, View.ROTATION, 3600);
         ObjectAnimator oaScaleImgY = ObjectAnimator.ofFloat(imgEric, View.SCALE_Y, 1);
         ObjectAnimator oaScaleImgX = ObjectAnimator.ofFloat(imgEric, View.SCALE_X, 1);
@@ -51,55 +57,28 @@ public class MainActivity extends AppCompatActivity {
         as2.start();
 
         Button btnStart = findViewById(R.id.btnStart);
+//          lorsqu on clique sur demarrer, on commence les questions
         btnStart.setOnClickListener(source -> {
             startActivity(new Intent(MainActivity.this, ConteneurFragmentsActivity.class));
         });
 
-//        public void getSerializedScores(Activity activity, TextView bestScore){
-//            FileInputStream fis = null;
-//            try {
-//                fis = activity.openFileInput("fichier.ser");
-//                ObjectInputStream ois = new ObjectInputStream(fis);
-//                Score s = (Score) ois.readObject();
-//                ois.close();
-//                bestScore.setText(String.valueOf(s.getScore()));
-//
-//            } catch (IOException | ClassNotFoundException e) {
-//                e.printStackTrace();
-//                System.out.println(e.getMessage());
-//            }
-//        }
-
-//        new Utils(this).getSerializedScores(MainActivity.this, bestScore);
-
-        FileInputStream fis = null;
         try{
-            fis = openFileInput("scores.ser");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            Scores s = (Scores) ois.readObject();
-            ois.close();
-            Score best = new Score();
-
-            if (s.getArrayScores() != null){
-                for(Score score : s.getArrayScores()){
-                    if (score.getScore() > best.getScore()){
-                        best = score;
-                    }
-                }
-            }
-            else{
-                bestScore.setText(String.valueOf(0));
-            }
-            bestScore.setText(String.valueOf(best.getScore()));
+//            Fonction pour aller chercher le score et l afficher
+            utils.fillBestScore(MainActivity.this, bestScore);
         } catch (IOException | ClassNotFoundException e){
             e.printStackTrace();
         }
-
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+//        Pour afficher un nouveau highscore au retour du quiz
+        try{
+            utils.fillBestScore(MainActivity.this, bestScore);
+
+        } catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
     }
 }

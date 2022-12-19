@@ -31,9 +31,9 @@ public class FinFragment extends Fragment {
     private TextView scoreFinal;
     private ImageView etoile1, etoile2, etoile3, etoile4;
     private Score s;
-    ObjectAnimator o1, o2, o3, o4;
-    EcouteurFin ec;
-
+    private ObjectAnimator o1, o2, o3, o4;
+    private EcouteurFin ec;
+    private Utils utils;
 
     public FinFragment() {
         // Required empty public constructor
@@ -56,12 +56,15 @@ public class FinFragment extends Fragment {
         etoile2 = parent.findViewById(R.id.imgEtoile2);
         etoile3 = parent.findViewById(R.id.imgEtoile3);
         etoile4 = parent.findViewById(R.id.imgEtoile4);
+        utils = new Utils(getContext());
 
         Context context = getContext();
         assert context != null;
         s = ((ConteneurFragmentsActivity)context).getS();
         scoreFinal.setText(String.valueOf(s.getScore()));
 
+
+//        Beaucoup de code pour l animation des etoiles, dans un animatorSet ca ne faisait pas ce que je voulais.
         o1 = ObjectAnimator.ofFloat(etoile1, View.ROTATION, 3600);
         o2 = ObjectAnimator.ofFloat(etoile2, View.ROTATION, 3600);
         o3 = ObjectAnimator.ofFloat(etoile3, View.ROTATION, 3600);
@@ -99,50 +102,31 @@ public class FinFragment extends Fragment {
 
         @Override
         public void onClick(View source) {
+//            Si l usager veut sauvegarder, on va voir s il y a un fichier de serialization, s il y
+//             en a un, on prend l objet, qui est un objet Scores, on l update avec le nouveau Score.
             if (source == btnSave){
                 if (s.getScore() > 0){
-
                     try{
-                        FileInputStream fis = getActivity().openFileInput("scores.ser");
-                        ObjectInputStream ois = new ObjectInputStream(fis);
-                        Scores scores = (Scores) ois.readObject();
+                        Scores scores = (Scores) utils.getSerialized(requireActivity(), "scores.ser");
                         scores.updateArrayScore(s);
-                        ois.close();
-                        FileOutputStream fos = getActivity().openFileOutput("scores.ser", Context.MODE_PRIVATE);
-                        ObjectOutputStream oos = new ObjectOutputStream(fos);
-                        oos.writeObject(scores);
+                        utils.serialiser(requireActivity(), scores, "scores.ser");
                     }
                     catch(IOException | ClassNotFoundException exception){
+//                        S il n y a pas de fichier de serialization on va en creer un et y ajouter un scores
                         try {
-                            FileOutputStream fos = getActivity().openFileOutput("scores.ser", Context.MODE_PRIVATE);
-                            ObjectOutputStream oos = new ObjectOutputStream(fos);
                             Scores scores = new Scores();
                             scores.updateArrayScore(s);
-                            oos.writeObject(scores);
-
+                            utils.serialiser(requireActivity(), scores, "scores.ser");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
                     }
                 }
-//                    try {
-//                        FileOutputStream fos = getActivity().openFileOutput("fichier.ser", Context.MODE_PRIVATE);
-//                        ObjectOutputStream oos = new ObjectOutputStream(fos);
-//                        oos.writeObject(s);
-//                        oos.close();
-//                        getActivity().finish();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
                 else{
                     Toast.makeText(getContext(), "Vous n'avez pas fait de point", Toast.LENGTH_LONG).show();
                 }
             }
             requireActivity().finish();
-
         }
     }
-
 }

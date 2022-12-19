@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 public class Scores implements Serializable {
 
+//    Classe qui sert a etre une liste de score en memoire pour la serialiser
+
     private ArrayList<Score> arrayScores;
 
     public Scores(){

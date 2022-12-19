@@ -6,6 +6,7 @@ public class QuestionHelper {
 
     public QuestionHelper(){};
 
+//    Fonction retournant l artiste ayant le plus de followers dans une array d artistes
     public Artiste generateFollowersAnswer(ArrayList<Artiste> artisteArrayList){
         Artiste bestArt;
         bestArt = artisteArrayList.get(0);
@@ -17,6 +18,7 @@ public class QuestionHelper {
         return bestArt;
     }
 
+//    Fonction retournant l artiste ayant la plus grande popularite dans un array d artiste
     public Artiste generatePopularityAnswer(ArrayList<Artiste> artisteArrayList){
         Artiste bestArt;
         bestArt = artisteArrayList.get(0);

@@ -5,6 +5,8 @@ import java.util.Collections;
 
 public class UrlGenerator{
 
+//    Classe qui garde en stock les urls des artistes souhaites
+
     private String https = "https://api.spotify.com/v1/artists?ids=";
     private ArrayList<String> artisteIDs;
 
@@ -24,6 +26,7 @@ public class UrlGenerator{
     }
 
     public String generateTwoArtistsUrl(){
+//        Fonction qui renvoie un string monte pour une requete a deux artistes
 
         Collections.shuffle(this.artisteIDs);
 

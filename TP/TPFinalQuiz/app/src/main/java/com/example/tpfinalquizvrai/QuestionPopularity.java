@@ -3,7 +3,6 @@ package com.example.tpfinalquizvrai;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,7 +75,7 @@ public class QuestionPopularity extends Fragment {
         RequeteTermineeListener requeteTermineeListener = response -> {
             Gson gson = new GsonBuilder().create();
             artistes = gson.fromJson(String.valueOf(response), Artistes.class);
-            a = artistes.getTopArtists(2);
+            a = artistes.getNArtists(2);
             bonArtiste = questionHelper.generatePopularityAnswer(a);
             utils.viewsFiller(q1, "Quel artiste a la plus haute cote de popularité selon Spotify ?", img11, a.get(0), rep11, img12, a.get(1), rep12);
         };
@@ -101,6 +100,7 @@ public class QuestionPopularity extends Fragment {
         @SuppressLint("SetTextI18n")
         @Override
         public void onClick(View view) {
+//            Si l artiste n a pas encore repondu, on traite sa reponse et on agit comme il se doit
             if (peutRepondre){
                 String nom = utils.returnSecondChildString(view);
                 Artiste artRep = artistes.getArtiste(nom);
@@ -115,7 +115,7 @@ public class QuestionPopularity extends Fragment {
                 else{
                     view.setBackgroundColor(getResources().getColor(R.color.orange));
                     result.setTextColor(getResources().getColor(R.color.orange));
-                    result.setText("Mauvaises reponse\nBonne reponse : " + bonArtiste.name + ", Popularité : " + bonArtiste.followers.total);
+                    result.setText("Mauvaises reponse\nBonne reponse : " + bonArtiste.name + ", Popularité : " + bonArtiste.popularity);
                 }
                 peutRepondre = false;
             }

@@ -6,7 +6,6 @@ import android.content.Context;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
@@ -15,6 +14,8 @@ import java.util.Map;
 
 
 public class RequeteJSON {
+
+//    classe personnelle pour une qui a comme fonction de faire une requete JSON
 
     public RequeteJSON(){}
 

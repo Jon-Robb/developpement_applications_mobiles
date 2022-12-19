@@ -3,7 +3,6 @@ package com.example.tpfinalquizvrai;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +22,8 @@ import java.util.Random;
 
 
 public class QuestionGenres extends Fragment {
+
+//    Cette classe est sensiblement la classe QuestionFollowers, a quelques details pres
 
     private TextView score;
     private TextView result;
@@ -80,11 +81,14 @@ public class QuestionGenres extends Fragment {
         RequeteTermineeListener requeteTermineeListener = response -> {
             Gson gson = new GsonBuilder().create();
             artistes = gson.fromJson(String.valueOf(response), Artistes.class);
-            a = artistes.getTopArtists(2);
+//            On va chercher deux artistes
+            a = artistes.getNArtists(2);
             bonArtiste = new Artiste();
+//            On pige la bonne reponse au hasard
             bonArtiste = a.get(new Random().nextInt(a.size()));
-            genres = new StringBuilder();
 
+//            On construit un String qui contiendra les trois premiers genres de l artiste en question
+            genres = new StringBuilder();
             if (bonArtiste.genres.size() < 3){
                 maxGenres = bonArtiste.genres.size();
             }
@@ -96,9 +100,11 @@ public class QuestionGenres extends Fragment {
                     genres.append(bonArtiste.genres.get(i));
                 }
             }
+//            On remplit la Vue avec les infos des artistes
             utils.viewsFiller(q1, "À quel artiste correspond ces genres musicaux : \n" + genres, img11, a.get(0), rep11, img12, a.get(1), rep12);
         };
 
+//        Etapes d Eric + Meme logique que QuestionFollowers
         EcouteurQ2 ec = new EcouteurQ2();
         conteneurRep1.setOnClickListener(ec);
         conteneurRep2.setOnClickListener(ec);
@@ -119,6 +125,7 @@ public class QuestionGenres extends Fragment {
         @SuppressLint("SetTextI18n")
         @Override
         public void onClick(View view) {
+//            Meme logique que pour QuestonFollowers
             if (peutRepondre){
                 String nom = utils.returnSecondChildString(view);
                 Artiste artRep = artistes.getArtiste(nom);

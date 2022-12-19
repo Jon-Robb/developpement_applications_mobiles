@@ -9,6 +9,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
+// La classe qui nous a ete donnee
+
 public class RequestsSingleton {
     private static RequestsSingleton instance;
     private RequestQueue requestQueue;

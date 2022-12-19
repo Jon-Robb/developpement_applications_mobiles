@@ -3,7 +3,6 @@ package com.example.tpfinalquizvrai;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +20,8 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 
 public class QuestionFollowers extends Fragment {
+
+//    Fragment pour les questions en lien avec le nombre de followers.
 
     private TextView score;
     private TextView result;
@@ -55,6 +56,7 @@ public class QuestionFollowers extends Fragment {
         NetworkImageView img11 = parent.findViewById(R.id.img31);
         NetworkImageView img12 = parent.findViewById(R.id.img32);
 
+//        Animations
         LinearLayout conteneurRep1 = parent.findViewById(R.id.conteneurRep31);
         LinearLayout conteneurRep2 = parent.findViewById(R.id.conteneurRep32);
         ObjectAnimator oa1 = ObjectAnimator.ofFloat(conteneurRep1, View.TRANSLATION_X, 0);
@@ -64,6 +66,7 @@ public class QuestionFollowers extends Fragment {
         oa1.start();
         oa2.start();
 
+//        On va chercher le score et on l affiche
         Context context = getContext();
         assert context != null;
         s = ((ConteneurFragmentsActivity) context).getS();
@@ -72,24 +75,31 @@ public class QuestionFollowers extends Fragment {
         utils = new Utils(getContext());
         questionHelper = new QuestionHelper();
 
+//        On cree un objet requeteTermineListener dans lequel on code les particularites de cette quetion
         RequeteTermineeListener requeteTermineeListener = response -> {
             Gson gson = new GsonBuilder().create();
+//            On remplit un objet Artistes avec la reponse a la requete
             artistes = gson.fromJson(String.valueOf(response), Artistes.class);
-            a = artistes.getTopArtists(2);
+//            On utilise nos fonctions specifiques pour les questions de followers
+            a = artistes.getNArtists(2);
             bonArtiste = questionHelper.generateFollowersAnswer(a);
+//            On remplit la vue avec les informations sur les deux artistes de la question
             utils.viewsFiller(q1, "Quel artiste a le plus de followers ?", img11, a.get(0), rep11, img12, a.get(1), rep12);
         };
 
+//        Etapes d Eric
         EcouteurQ1 ec = new EcouteurQ1();
         conteneurRep1.setOnClickListener(ec);
         conteneurRep2.setOnClickListener(ec);
 
+//        On cree les objets necessaires a la requete et au listener
         RequeteListener requeteListener = new RequeteListener(requeteTermineeListener);
         RequeteJSON requete = new RequeteJSON();
 
         UrlGenerator urlGenerator = new UrlGenerator();
 
         String url = urlGenerator.generateTwoArtistsUrl();
+//        On fait la requete grace a notre objet RequeteJSON et notre listener
         requete.faireRequete(getContext(), Request.Method.GET, url, requeteListener);
 
         return parent;
@@ -100,6 +110,7 @@ public class QuestionFollowers extends Fragment {
         @SuppressLint("SetTextI18n")
         @Override
         public void onClick(View view) {
+//            Si l usager n a pas encore repondu, on agit selon la reponse qu il donne
             if (peutRepondre){
                 String nom = utils.returnSecondChildString(view);
                 Artiste artRep = artistes.getArtiste(nom);

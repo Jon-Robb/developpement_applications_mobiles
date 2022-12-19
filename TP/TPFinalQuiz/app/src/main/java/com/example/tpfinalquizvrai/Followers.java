@@ -1,7 +1,6 @@
 package com.example.tpfinalquizvrai;
 
 public class Followers {
-
-    String href;
+//    Classe pour le GSON
     int total;
 }

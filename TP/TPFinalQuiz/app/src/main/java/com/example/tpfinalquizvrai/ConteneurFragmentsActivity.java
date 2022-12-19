@@ -16,10 +16,10 @@ import android.view.MenuItem;
 
 public class ConteneurFragmentsActivity extends AppCompatActivity {
 
-    ViewPager2 viewPager;
-    ScreenSlidePagerAdapter adapter;
+    private ViewPager2 viewPager;
+    private ScreenSlidePagerAdapter adapter;
     private Score s;
-    private int nbQuestions = 3;
+    private int nbQuestions = 30;
 
 
     @SuppressLint("MissingInflatedId")
@@ -41,18 +41,16 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
         viewPager.registerOnPageChangeCallback(new CallBackPage());
 
     }
-
+//  Fonction utile pour le score au fil des fragments
     public Score getS() {
         return s;
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_principla, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -84,7 +82,7 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
         @Override
         public Fragment createFragment(int position) {
 
-//            Dependament de la position, on retourne le fragment correspondant
+//            Le premier tier sera sur les followers, le deuxieme sur les genres et le troisieme sur la popularity
 
             if ( position < nbQuestions / 3 )
             {
@@ -108,10 +106,8 @@ public class ConteneurFragmentsActivity extends AppCompatActivity {
         public int getItemCount() {
 
             return nbQuestions + 1;
-
         }
     }
-
 
     private class CallBackPage extends ViewPager2.OnPageChangeCallback
     {

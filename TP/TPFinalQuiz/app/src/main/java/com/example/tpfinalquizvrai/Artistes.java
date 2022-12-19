@@ -2,71 +2,37 @@ package com.example.tpfinalquizvrai;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 public class Artistes {
 
+    //Classe servant a stocker plusieurs artistes a la fois
+
     ArrayList<Artiste> artists;
 
-    public ArrayList<Artiste> getTopArtists(int nb) {
+    //Pour recevoir un arrayList d un nombre n d artistes piges au hasard
+    public ArrayList<Artiste> getNArtists(int nb) {
         Collections.shuffle(this.artists);
         ArrayList<Artiste> arrArt = new ArrayList<>();
+        if (this.artists.size() < nb){
+            nb = this.artists.size();
+        }
         for (int i = 0; i < nb; i++){
             arrArt.add(this.artists.get(i));
         }
         return arrArt;
     }
 
-    public Artiste getRandomArtist(){
-        Collections.shuffle(this.artists);
-        return this.artists.get(new Random().nextInt(this.artists.size()));
-    }
-
-    public Artiste getArtiste(String pArtiste){
+//  Pour aller chercher un artiste en particulier avec son nom
+    public Artiste getArtiste(String nomArtiste){
         Artiste art = new Artiste();
 
         for (Artiste artiste : this.artists){
-            if (artiste.name.equals(pArtiste)){
+            if (artiste.name.equals(nomArtiste)){
                 art = artiste;
             }
         }
         return art;
     }
 
-
-    //     public boolean hasMoreFollowers(Artiste pArtiste){
-//
-//        for (Artiste artiste : this.artists){
-//            if (pArtiste.followers.total < artiste.followers.total){
-//                return false;
-//            }
-//        }
-//        return true;
-//     }
-//
-//     public boolean hasMorePopularity(Artiste pArtiste){
-//
-//         for (Artiste artiste : this.artists){
-//             if (pArtiste.popularity < artiste.popularity){
-//                 return false;
-//             }
-//         }
-//         return true;
-//     }
-//
-//     public boolean hasGenre(Artiste pArtiste){
-//
-//        for (Artiste artiste : this.artists){
-//            for (String genre1 : artiste.genres){
-//                for (String genre2 : pArtiste.genres){
-//                    if (genre1.equals(genre2)){
-//                        return true;
-//                    }
-//                }
-//            }
-//        }
-//        return false;
-//
-//     }
 
 }
