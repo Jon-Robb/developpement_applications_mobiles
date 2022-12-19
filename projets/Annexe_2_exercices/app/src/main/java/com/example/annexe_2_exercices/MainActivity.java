@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                count++;
                line = br.readLine();
            }
-
+            System.out.println(count);
         }
         catch(IOException e ){
             e.printStackTrace();

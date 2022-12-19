@@ -47,8 +47,7 @@ public class Utils {
 
         LinearLayout parent = (LinearLayout) view;
         TextView enfant = (TextView) parent.getChildAt(1);
-        String nom = enfant.getText().toString();
-        return nom;
+        return enfant.getText().toString();
 
     }
 
@@ -80,11 +79,11 @@ public class Utils {
                     best = score;
                 }
             }
+            bestScore.setText(String.valueOf(best.getScore()));
         }
         else{
             bestScore.setText(String.valueOf(0));
         }
-        bestScore.setText(String.valueOf(best.getScore()));
     }
 
 }
