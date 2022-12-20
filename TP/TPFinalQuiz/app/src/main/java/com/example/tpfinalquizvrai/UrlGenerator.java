@@ -45,7 +45,6 @@ public class UrlGenerator{
         this.artisteIDs.add("06HL4z0CvFAxyc27GXpf02");
         this.artisteIDs.add("6jJ0s89eD6GaHleKKya26X");
         this.artisteIDs.add("6eUKZXaKkcviH0Ku9w2n3V");
-
     }
 
     public String generateTwoArtistsUrl(){
